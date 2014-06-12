@@ -1,0 +1,59 @@
+\documentclass[compress,mathserif]{beamer}
+\usepackage{zhfontcfg}
+\usetheme{Warsaw}
+%\usetheme{Darmstadt}
+%\usefonttheme[onlylarge]{structurebold}
+%\setbeamerfont*{frametitle}{size=\normalsize,series=\bfseries}
+%\setbeamertemplate{navigation symbols}{}
+
+\setlength{\abovecaptionskip}{0pt} 
+\setlength{\belowcaptionskip}{0pt} 
+
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+\usepackage{hyperref}
+%\hypersetup{colorlinks,urlcolor=blue,linkcolor=blue,anchorcolor=blue,citecolor=blue,CJKbookmarks}
+\hypersetup{ breaklinks=true,linktocpage,pdftitle={$title$},pdfauthor={$for(author)$$author$$sep$; $endfor$},xetex,colorlinks }
+
+\begin{document}
+
+
+$if(title)$
+\title{$title$}
+$endif$
+
+\author{$for(author)$$author$$sep$\\$endfor$}
+$if(date)$
+\date{$date$}
+$else$
+\date{\today}
+$endif$
+%%\author[陈晓辉,]
+%%{
+%%  陈~晓辉\inst{1} \and
+%%  \inst{2}
+%%}
+\institute{清华大学~软件学院}
+%%\institute[Thss and others]
+%%{
+%%  \inst{1}%
+%%  清华大学~软件学院
+%%  \and
+%%  \vskip-2mm
+%%  \inst{2}%
+%%  清华大学~软件学院
+%%}
+
+%%\date[WABI 2006]{Workshop on Algorithms in Bioinformatics, 2006}
+\frame{\titlepage}
+\frame{\tableofcontents}
+
+$body$
+
+\section{参考文献}
+\begin{frame}
+\frametitle{参考文献}
+\bibliographystyle{unsrt}
+\bibliography{}
+\end{frame}
+\clearpage
+\end{document} 

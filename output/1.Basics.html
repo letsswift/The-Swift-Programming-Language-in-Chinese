@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <meta content="all" name="robots" />
+     <meta name="author" content="" />
+     <meta name="Copyright" content="" />
+     <meta name="description" content="" />
+     <meta name="keywords"content="" />
+     <link rel="icon" href="" type="image/x-icon" />
+     <link rel="shortcut icon" href="" type="image/x-icon" />
+     <link rel="stylesheet" rev="stylesheet" href="" type="text/css" media="all" />
+     <title>{}</title>
+   </head>
+   <body>
+   <h1 id="基础类型">基础类型</h1>
+   <p>虽然Swift是一个为开发iOS和OS X app设计的全新编程语言，但是Swift的很多特性还是跟C和Objective-C相似。</p>
+   <p>Swift也提供了与C和Objective-C类似的基础数据类型，包括整形Int、浮点数Double和Float、布尔类型Bool以及字符串类型String。Swift还提供了两种更强大的基本集合数据类型，Array和Dictionary，更详细的内容可以参考：<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/CollectionTypes.html#//apple_ref/doc/uid/TP40014097-CH8-XID_133" title="Collection Types">Collection Types</a>。</p>
+   <p>跟C语言一样，Swift使用特定的名称来定义和使用变量。同样，Swift中也可以定义常量，与C语言不同的是，Swift中的常量更加强大，在编程时使用常量能够让代码看起来更加安全和简洁。</p>
+   <p>除了常见的数据类型之外，Swift还集成了Objective-C中所没有的“元组”类型，可以作为一个整体被传递。元组也可以成为一个函数的返回值，从而允许函数一次返回多个值。</p>
+   <p>Swift还提供了可选类型，用来处理一些未知的不存在的值。可选类型的意思是：这个值要么存在，并且等于x，要么根本不存在。可选类型类似于Objective-C中指针的nil值，但是nil只对类(class)有用，而可选类型对所有的类型都可用，并且更安全。可选类型是大部分Swift新特性的核心。</p>
+   <p>可选性类型只是Swift作为类型安全的编程语言的一个例子。Swift可以帮助你更快地发现编码中的类型错误。如果你的代码期望传递的参数类型是String的，那么类型安全就会防止你错误地传递一个Int值。这样就可以让编程人员在开发期更快地发现和修复问题。</p>
+   <h2 id="常量和变量">常量和变量</h2>
+   <p>常量和变量由一个特定名称来表示，如maximumNumberOfLoginAttempt 或者 welcomeMessage。常量所指向的是一个特定类型的值，如数字10或者字符&quot;hello”。变量的值可以根据需要不断修改，而常量的值是不能够被二次修改的。</p>
+   <h3 id="常量和变量的声明">常量和变量的声明</h3>
+   <p>常量和变量在使用前都需要声明，在Swift中使用let关键词来声明一个常量，var关键词声明一个变量。如下面例子</p>
+   <pre><code>let maximumNumberOfLoginAttempts = 10
+   var currentLoginAttempt = 0</code></pre>
+   <p>以上代码可以理解为：</p>
+   <p>声明一个叫maximumNumberOfLoginAttempts的值为10的常量。然后声明一个变量currentLoginAttempt初始值为0。</p>
+   <p>在这个例子中，最大的登录尝试次数10是不变的，因此声明为常量。而已经登录的尝试次数是可变的，因此定义为变量。也可以在一行中声明多个变量或常量，用,号分隔：</p>
+   <pre><code>var x = 0.0, y = 0.0, z = 0.0</code></pre>
+   <blockquote>
+   <p>注：如果一个值在之后的代码中不会再变化，应该用let关键词将它声明为常量。变量只用来存储会更改的值。</p>
+   </blockquote>
+   <h3 id="类型注解">类型注解</h3>
+   <p>在声明常量和变量时，可以使用注解来注明该变量或常量的类型。使用:号加空格加类型名在变量或常量名之后就可以完成类型注解。下面的例子就是声明了一个变量叫welcomeMessage，注解类型为字符串String：</p>
+   <pre><code>var welcomeMessage: String</code></pre>
+   <p>分号 “:&quot; 在这的作用就像是在说：…是…类型的，因此上述代码可以理解为：</p>
+   <p>声明一个叫welcomeMessage的变量，它的类型是String</p>
+   <p>这个类型注解表明welcomeMessage变量能无误地存储任何字符串类型的值，比如welcomeMessage = “hello”</p>
+   <blockquote>
+   <p>注：实际编程中很少需要使用类型注解，定义常量或者变量的时候Swift已经根据初始化的值确定了类型信息。Swift几乎都可以隐式的确定变量或常量的类型，详见： <a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/CollectionTypes.html#//apple_ref/doc/uid/TP40014097-CH8-XID_133%20&quot;%20Type%20Safety%20and%20Type%20Inference&quot;">Type Safety and Type Inference</a>。而上面的welcomeMessage的例子中，初始化值没有被给出，所以更好的办法是指定welcomeMessage变量的类型而不是让Swift隐式推导类型。</p>
+   </blockquote>
+   <h3 id="常量和变量的命名">常量和变量的命名</h3>
+   <p>Swift中可以使用几乎任何字符来作为常量和变量名，包括Unicode，比如：</p>
+   <pre><code>let π = 3.14159
+   let 你好 = &quot;你好世界&quot;
+   let = &quot;dogcow&quot;</code></pre>
+   <p>但是名称中不能含有数学符号，箭头，无效的Unicode，横线-和制表符，且不能以数字开头，尽管数字可以包含在名称里。一旦完成了声明，就不能再次声明相同名称的变量或常量，或者改变它的类型。变量和常量也不能互换。</p>
+   <blockquote>
+   <p>注：如果你想用Swift保留字命名一个常量或者变量，你可以用 ` 符号把命名包围起来。尽管如此，除非处于特别的意图，尽量不要使用保留字作为变量/常量名。</p>
+   </blockquote>
+   <p>可以改变变量的值为它声明的类型的其它值，如下的例子里，变量friendlyWelcome的值从“Hello!&quot;被修改为”Bonjour!&quot;:</p>
+   <pre><code>var friendlyWelcome = “hello!”
+   friendlyWelcome = “Bonjour!”
+   // friendlyWelcome is now “Bonjour!”</code></pre>
+   <p>与变量不同的是，常量的值一旦确定就不能修改。如果想尝试改变一个常量的值，编译代码时就会报错</p>
+   <pre><code>let languageName = &quot;Swift&quot;
+   languageName = &quot;Swift++&quot;
+   // this is a compile-time error - languageName cannot be changed</code></pre>
+   <h3 id="输出常量和变量">输出常量和变量</h3>
+   <p>Swift使用println来输出变量或者常量：</p>
+   <pre><code>println(friendlyWelcome)
+   // prints “Bonjour!”</code></pre>
+   <p>println是一个全局函数，用来输出一个值，最后输出一个换行。在Xcode中，println输出在控制台中。print函数也类似，只不过最后不会输出换行。</p>
+   <p>println函数一般输出一个字符串</p>
+   <pre><code>println(&quot;This is a string&quot;)
+   // prints &quot;This is a string&quot;</code></pre>
+   <p>println函数还可以格式化输出一些日志信息，就像是Cocoa中NSLog函数的行为一样，可以包括一些常量和变量本身。Swift在字符串中插入变量名作为占位符，使用反斜杠()来提示Swift替换变量/常量名为其实际的值，如：</p>
+   <p>println(&quot;The current value of friendlyWelcome is (friendlyWelcome)&quot;) // prints &quot;The current value of friendlyWelcome is Bonjour!&quot;</p>
+   <blockquote>
+   <p>注：关于格式化字符的详见 <a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html#//apple_ref/doc/uid/TP40014097-CH7-XID_381" title="String Interpolation">String Interpolation</a></p>
+   </blockquote>
+   <h2 id="注释">注释</h2>
+   <p>不参与编译的语句称为注释，注释可以提示你代码的意图。Swift中的注释和C语言中的一样，有单行注释</p>
+   <pre><code>//this is a comment</code></pre>
+   <p>和多行注释，使用/<em>和</em>/分隔</p>
+   <pre><code>/* this is also a comment,
+   but written over multiple lines */</code></pre>
+   <p>和C语言不同的是，多行注释可以嵌套，你需要先开始一个多行注释，然后开始第二个多行注释，关闭注释的时候先关闭第二个，然后是第一个。如下</p>
+   <pre><code>/* this is the start of the first multiline comment
+   /* this is the second, nested multiline comment */
+   this is the end of the first multiline comment */</code></pre>
+   <p>这样可以方便地在大段已注释的代码块中继续添加注释</p>
+   <h2 id="分号">分号</h2>
+   <p>和其它一些编程语言不同，Swift不需要使用分号 ; 来分隔每一个语句。当然你也可以选择使用分号，或者你想在一行中书写多个语句。</p>
+   <pre><code>let cat = &quot;&quot;; println(cat)
+   // prints &quot;&quot;</code></pre>
+   <h2 id="整数">整数</h2>
+   <p>整数就是像42和-23这样不带分数的数字，包括有符号（正数，负数，0）和无符号（正数，0）。Swift提供了8、16、32和64位的数字形式，和C语言类似，可以使用8位的无符号整数UInt8，或者32位的整数Int32.像其他Swift类型一样，这些类型名的首字母大写。</p>
+   <h3 id="整数边界">整数边界</h3>
+   <p>使用min或max值来获取该类型的最大最小值，如：</p>
+   <pre><code>let minValue = UInt8.min // minValue is equal to 0, and is of type UInt8
+   let maxValue = UInt8.max // maxValue is equal to 255, and is of type UInt8</code></pre>
+   <p>这些值边界值区分了整数的类型（比如UInt8），所以可以像该类型的其他值一样被用在表达式中而不用考虑益处的问题。</p>
+   <h3 id="int类型">Int类型</h3>
+   <p>一般来说，编程人员在写代码时不需要选择整数的位数，Swift提供了一种额外的整数类型Int，是和当前机器环境的字长相同的整数位数</p>
+   <ul>
+   <li><p>在32位机器上，Int和Int32一样大小</p></li>
+   <li><p>在64位机器上，Int和Int64一样大小</p></li>
+   </ul>
+   <p>除非你确实需要使用特定字长的正数，尽量使用Int类型。这保证了代码的可移植性。即使在32位的平台上，Int也可以存储-2,147,483,648 到2,147,483,647范围内的值，这对大部分正数来讲已经足够了。</p>
+   <h3 id="uint类型">UInt类型</h3>
+   <p>Swift还提供了一种无符号类型UInt，同理也是和当前机器环境的字长相等。</p>
+   <ul>
+   <li><p>在32位机器上，UInt和UInt32一样大小</p></li>
+   <li><p>在64位机器上，UInt和UInt64一样大小</p></li>
+   </ul>
+   <blockquote>
+   <p>注：只有显式的需要指定一个长度跟机器字长相等的无符号数的时候才需要使用UInt，其他的情况，尽量使用Int，即使这个变量确定是无符号的。都使用Int保证了代码的可移植性，避免了不同数字类型之间的转换。详见<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/CollectionTypes.html#//apple_ref/doc/uid/TP40014097-CH8-XID_133%20&quot;%20Type%20Safety%20and%20Type%20Inference&quot;">Type Safety and Type Inference</a>.</p>
+   </blockquote>
+   <p>5、浮点数</p>
+   <p>浮点数就是像3.14159，0.1，-273.15这样带分数的数字。浮点数可以表达比Int范围更广（更大或更小）的数值。swift支持两种带符号浮点数类型：</p>
+   <ul>
+   <li>Double类型能表示64位的有符号浮点数。当需要表的数字非常大或者精度要求非常高的时候可以使用Double类型。</li>
+   <li><p>Float类型能表示32为的有符号浮点数。当需要表达的数字不需要64位精度的时候可以使用Float类型。</p>
+   <p>注 Double 至少有15位小数，Float至少有6位小数。合适的浮点数小数位数取决于你代码里需要处理的浮点数范围。</p></li>
+   </ul>
+   <p>6、类型安全和类型推导</p>
+   <p>Swift是一种类型安全的语言。类型安全就是说在编程的时候需要弄清楚变量的类型。如果您的代码部分需要一个字符串，你不能错误地传递一个整数类型。</p>
+   <p>因为Swift是类型安全的，它会在编译的时候就检查你的代码，任何类型不匹配时都会报错。这使得编程人员能够尽快捕获并尽可能早地在开发过程中修正错误。</p>
+   <p>类型检查可以在使用不同类型的值时帮助避免错误。但是，这并不意味着你必须指定每一个常量和变量所声明的类型。如果不指定你需要的类型，Swift使用类型推导来指定出相应的类型。类型推导使编译器在编译的时候通过你提供的初始化值自动推导出特定的表达式的类型。</p>
+   <p>类型推导使Swift比起C或Objective-C只需要更少的类型声明语句。常量和变量仍然显式类型，但大部分指定其类型的工作Swift已经为你完成了。</p>
+   <p>当你声明一个常量或变量并给出初始值类型的时候，类型推导就显得特别有用。这通常是通过给所声明的常量或变量赋常值来完成的。 （常值是直接出现在源代码中的值，如下面的例子42和3.14159 。 ）</p>
+   <p>例如，如果您指定42到一个新的常数变量，而不用说它是什么类型，Swift推断出你想要的常量是一个整数，因为你已经初始化它为一个整数</p>
+   <pre><code>let meaningOfLife= 42
+   // meaningOfLife is inferred to be of typeInt</code></pre>
+   <p>同样，如果你不指定浮点值的类型，Swift推断出你想要创建一个Double：</p>
+   <pre><code>let pi = 3.14159
+   // pi is inferred to be of type Double</code></pre>
+   <p>Swift总是选择Double（而非Float）当它需要浮点数类型时。如果你在一个表达式中把整数和浮点数相加，会推导一个Double类型：</p>
+   <pre><code>let anotherPi= 3 + 0.14159
+   // anotherPi is also inferred to be of typeDouble</code></pre>
+   <p>常值3没有显示指明类型，所以Swift根据表达式中的浮点值推出输出类型Double。</p>
+   <h2 id="数值量表达">数值量表达</h2>
+   <p>整型常量可以写成：</p>
+   <ul>
+   <li>一个十进制数，不带前缀</li>
+   <li>一个二进制数，用前缀0b</li>
+   <li>一个八进制数，用0o前缀</li>
+   <li>一个十六进制数，以0x前缀</li>
+   </ul>
+   <p>所有如下用这些整型常量都可以来表达十进制值的17：</p>
+   <pre><code>let decimalInteger= 17
+   let binaryInteger = 0b10001 // 17 in binary notation
+   let octalInteger = 0o21 // 17 in octal notation
+   let hexadecimalInteger = 0x11 // 17 inhexadecimal notation</code></pre>
+   <p>浮点可以是十进制（不带前缀）或十六进制（以0x前缀），小数点的两侧必须始终有一个十进制数（或十六进制数）。他们也可以有一个可选的指数，由一个大写或小写e表示十进制浮点数表示，或大写/小写p表示十六进制浮点数</p>
+   <p>带指数exp的十进制数，实际值等于基数乘以10的exp次方，如：</p>
+   <ul>
+   <li>1.25e2表示1.25×102,或者125.0.</li>
+   <li>1.25e-2表示1.25×10-2,或者0.0125.</li>
+   </ul>
+   <p>带指数exp的十六进制数，实际值等于基部数乘以2的exp次方，如：</p>
+   <ul>
+   <li>0xFp2表示15×22,或者60.0.</li>
+   <li>0xFp-2表示15×2-2,或者3.75.</li>
+   </ul>
+   <p>所有如下这些浮点常量都表示十进制的12.1875：</p>
+   <pre><code>let decimalDouble= 12.1875
+   let exponentDouble= 1.21875e1
+   let hexadecimalDouble= 0xC.3p0</code></pre>
+   <p>数字值可以包含额外的格式，使它们更容易阅读。整数和浮点数都可以被额外的零填充，并且可以包含下划线，以增加可读性。以上格式都不影响变量的值：</p>
+   <pre><code>let paddedDouble= 000123.456
+   let oneMillion= 1_000_000
+   let justOverOneMillion= 1_000_000.000_000_1</code></pre>
+   <h2 id="数值类型转换">数值类型转换</h2>
+   <p>为代码中所有通用的数值型整型常量和变量使用Int类型，即使它们已知是非负的。这意味着代码中的数值常量和变量能够相互兼容并且能够与自动推导出的类型相互匹配。</p>
+   <p>只有因为某些原因（性能，内存占用或者其他必须的优化）确实需要使用其他数值类型的时候，才应该使用这些数值类型。这些情况下使用显式指定长度的类型有助于发现值范围溢出，同时应该留下文档。</p>
+   <h3 id="整数转换">　整数转换</h3>
+   <p>可以存储在一个整数常量或变量的范围根据每个数值类型是不同的。一个Int8常量或变量可以存储范围-128到127之间的数，而一个UInt8常量或变量可以存储0到255之间的数字。错误的赋值会让编译器报错：</p>
+   <pre><code>let cannotBeNegative: UInt8 = -1
+   // UInt8 cannot store negative numbers, and so this will report an error
+   let tooBig: Int8 = Int8.max + 1
+   // Int8 cannot store a number larger thanits maximum value,
+   // and so this will also report an error</code></pre>
+   <p>因为每个数字类型可以存储不同范围的值，你必须在基础数值类型上逐步做转换。这种可以防止隐藏的转换错误，并帮助明确你的代码中类型转换的意图。</p>
+   <p>要转换一个特定的数字类型到另一个，你需要定义一个所需类型的新变量，并用当前值初始化它。在下面的例子中，常量twoThousand是UInt16类型的，而常量one是UINT8类型的。它们不能被直接相加的，因为类型不同。相反的，该​​示例调用UInt16(one)来创建一个用变量one的值初始化的UInt16类型的新变量，并且使用这个值来代替原来的值参与运算：</p>
+   <pre><code>let twoThousand: UInt16 = 2_000
+   let one: UInt8 = 1
+   let twoThousandAndOne= twoThousand + UInt16(one)</code></pre>
+   <p>可以由于相加双方的类型都是UInt16的，现在可以做加法运算了。输出常量（twoThousandAndOne）被推断为UInt16类型的，因为它是两个UInt16的值的总和。</p>
+   <p>SomeType(ofInitialValue)是Swift默认的类型转换方式。实现上看，UInt16的有一个接受UINT8值的构造器，这个构造器用于从现有UInt8构造出一个新的UInt16的变量。你不能传入任意类型的参数，它必须是一个类型的UInt16初始化能接受的类型。如何扩展现有类型，规定接受新的类型（包括你自己的类型定义）可以参见 <a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Extensions.html#//apple_ref/doc/uid/TP40014097-CH24-XID_191" title="Extensions">Extensions</a>。</p>
+   <h3 id="整数和浮点数转换">整数和浮点数转换</h3>
+   <p>整数和浮点类型之间的转化必须显式声明：</p>
+   <pre><code>let three = 3
+   let pointOneFourOneFiveNine= 0.14159
+   let pi = Double(three) +pointOneFourOneFiveNine
+   // pi equals 3.14159, and is inferred to beof typde Double</code></pre>
+   <p>这里，常量three的值被用来创建Double类型的新变量，从而使表达式两侧是相同的类型。如果没有这个转换，加法操作不会被允许。反之亦然，一个整数类型可以用double或float值进行初始化：</p>
+   <pre><code>let integerPi= Int(pi)
+   // integerPi equals 3, and is inferred tobe of type Int</code></pre>
+   <p>当使用这种方式初始化一个新的整数值的时候，浮点值总是被截断。这意味着，4.75变为4，和-3.9变为-3。</p>
+   <blockquote>
+   <p>注：数值类型常量/变量的类型转换规则和数字类型常值的转换规则不同。常值3可以直接与常值0.14159相加，因为常值没有一个明确的类型。他们的类型是被编译器推导出来的。</p>
+   </blockquote>
+   <h2 id="类型别名">类型别名</h2>
+   <p>类型别名为现有类型定义的可替代名称。你可以使用typealias关键字定义类型别名。类型别名可以帮助你使用更符合上下文语境的名字来指代一个已存在的类型，比如处理一个外来的有指定长度的类型的时候：</p>
+   <pre><code>typealias AudioSample = UInt16</code></pre>
+   <p>一旦你定义了一个类型别名，你可以在任何可能使用原来的名称地方使用别名：</p>
+   <pre><code>var maxAmplitudeFound= AudioSample.min
+   // maxAmplitudeFound is now 0</code></pre>
+   <p>这里，AudioSample被定义为一个UInt16的别名。因为它是一个别名，调用AudioSample.min实际上是调用UInt16.min，从而给maxAmplitudeFound变量赋初始值0。</p>
+   <h2 id="布尔类型">布尔类型</h2>
+   <p>Swift中的布尔类型使用Bool定义，也被称为Logical（逻辑）类型，可选值是true和false：</p>
+   <pre><code>let orangesAreOrange = true
+   let turnipsAreDelicious = false</code></pre>
+   <p>这里 orangesAreOrange和turnipsAreDelicious的类型被推导为Bool 因为他们被初始化被Bool类型的常值。跟Int和Double类型一样，在定义布尔类型的时候不需要显式的给出数据类型，只需要直接赋值为true或false即可 。当使用确定类型的常值初始化一个常量/变量的时候，类型推导使Swift代码更精确和可读。 布尔类型在条件语句中特别适用，比如在if语句中</p>
+   <pre><code>if turnipsAreDelicious {
+   println(&quot;Mmm, tasty turnips!&quot;)
+   } else {
+   println(&quot;Eww, turnips are horrible.&quot;)
+   }
+   // prints &quot;Eww, turnips are horrible.&quot;</code></pre>
+   <p>像if语句这样的条件语句，我们会在之后的章节<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/ControlFlow.html#//apple_ref/doc/uid/TP40014097-CH9-XID_153" title="ControlFlow">ControlFlow</a>有详细介绍。 Swift的类型安全策略会防止其他非布尔类型转换为布尔类型使用，比如</p>
+   <pre><code>let i = 1
+   if i {
+   // this example will not compile, and will report an error
+   }</code></pre>
+   <p>就会报错，但这在其他编程语言中是可行的。但是如下的定义是正确的：</p>
+   <pre><code>let i = 1
+   if i == 1 {
+   // this example will compile successfully
+   }</code></pre>
+   <p>i == 1的结果就是一个布尔类型，所以可以通过类型检查。像i==1这种比较将会在章节[Basic Operators]中讨论。上面的例子也是一个Swift类型安全的例子。类型安全避免了偶然的类型错误，保证了代码的意图是明确的。</p>
+   <h2 id="元组类型">元组类型</h2>
+   <p>元组类型可以将一些不同的数据类型组装成一个元素，这些数据类型可以是任意类型，并且不需要是同样的类型。</p>
+   <p>在下面的例子中，(404, &quot;Not Found&quot;) 是一个HTTP状态码。HTTP状态码是请求网页的时候返回的一种特定的状态编码。404错误的具体含义是页面未找到。</p>
+   <p>let http404Error = (404, &quot;Not Found&quot;) // http404Error is of type (Int, String), and equals (404, &quot;Not Found&quot;)</p>
+   <p>这个元组由一个Int和一个字符串String组成，这样的组合即包含了数字，也包含了便于人们认知的字符串描述。这个元组可以描述为类型(Int,String)的元组。</p>
+   <p>编程人员可以随意地创建自己需要的元组类型，比如 (Int, Int, Int), 或者(String, Bool)等。同时组成元组的类型数量也是不限的。 可以通过如下方式分别访问一个元组的值：</p>
+   <pre><code>let (statusCode, statusMessage) = http404Error
+   println(&quot;The status code is \(statusCode)&quot;)
+   // prints &quot;The status code is 404&quot;
+   println(&quot;The status message is \(statusMessage)&quot;)
+   // prints &quot;The status message is Not Found&quot;</code></pre>
+   <p>如果仅需要元组中的个别值，可以使用(_)来忽略不需要的值</p>
+   <pre><code>let (justTheStatusCode, _) = http404Error
+   println(&quot;The status code is \(justTheStatusCode)&quot;)
+   // prints &quot;The status code is 404&quot;</code></pre>
+   <p>另外，也可以使用元素序号来选择元组中的值，注意序号是从0开始的</p>
+   <pre><code>println(&quot;The status code is \(http404Error.0)&quot;)
+   // prints &quot;The status code is 404&quot;
+   println(&quot;The status message is \(http404Error.1)&quot;)
+   // prints &quot;The status message is Not Found&quot;</code></pre>
+   <p>在创建一个元组的时候，也可以直接指定每个元素的名称，然后直接使用元组名.元素名访问，如：</p>
+   <pre><code>let http200Status = (statusCode: 200, description: &quot;OK&quot;)
+   println(&quot;The status code is \(http200Status.statusCode)&quot;)
+   // prints &quot;The status code is 200&quot;
+   println(&quot;The status message is \(http200Status.description)&quot;)
+   // prints &quot;The status message is OK&quot;</code></pre>
+   <p>元组类型在作为函数返回值的时候特别适用，可以为函数返回更多的用户需要的信息。比如一个请求web页面的函数可以返回(Int,String)类型的元组来表征页面获取的成功或者失败。返回两个不同类型组成的元组可以比只返回一个类型的一个值提供更多的返回信息。详见<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Functions.html#//apple_ref/doc/uid/TP40014097-CH10-XID_212" title="Functions with Multiple Return Values">Functions with Multiple Return Values</a></p>
+   <h2 id="可选类型">可选类型</h2>
+   <p>在一个值可能不存在的时候，可以使用可选类型。这种类型的定义是：要么存在这个值，且等于x，要么在这个值 不存在。</p>
+   <blockquote>
+   <p>注：这种类型在C和Objective-C中是不存在的，但是Objective-C中有一个相似的类型，叫nil，但是仅仅对对象有用。对其他的情况，Object-C方法返回一个特殊值（比如NSNotFound）来表明这个值不存在。这种方式假设方法调用者知道这个特殊值的存在和含义。Swift的可选类型帮助你定义任意的值不存在的情况。</p>
+   </blockquote>
+   <p>下面给出一个例子，在Swift中String类型有一个叫toInt的方法，能够将一个字符串转换为一个Int类型。但是需要注意的是，不是所有的字符串都可以转换为整数。比如字符串&quot;123&quot;可以转换为123，但是&quot;hello, world&quot;就不能被转换。</p>
+   <pre><code>let possibleNumber = &quot;123&quot;
+   let convertedNumber = possibleNumber.toInt()
+   // convertedNumber is inferred to be of type &quot;Int?&quot;, or &quot;optional Int&quot;</code></pre>
+   <p>由于toInt方法可能会失败，因此它会返回一个可选的Int类型，而不同于Int类型。一个可选的Int类型被记为Int?，不是Int。问号表明它的值是可选的，可能返回的是一个Int，或者返回的值不存在。</p>
+   <h3 id="if语句和强制解包">if语句和强制解包</h3>
+   <p>编程人员可以使用if语句来检测一个可选类型是否包含一个特定的值，如果一个可选类型确实包含一个值，在if语句中它将返回true，否则返回false。如果你已经检测确认该值存在，那么可以使用或者输出它，在输出的时候只需要在名称后面加上感叹号(!)即可，意思是告诉编译器：我已经检测好这个值了，可以使用它了。如：</p>
+   <pre><code>if convertedNumber {
+   println(&quot;\(possibleNumber) has an integer value of \(convertedNumber!)&quot;)
+   } else {
+   println(&quot;\(possibleNumber) could not be converted to an integer&quot;)
+   }
+   // prints &quot;123 has an integer value of 123&quot;</code></pre>
+   <p>像if语句这样的条件语句，我们会在之后的章节<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/ControlFlow.html#//apple_ref/doc/uid/TP40014097-CH9-XID_153" title="ControlFlow">ControlFlow</a>有详细介绍。</p>
+   <h3 id="选择绑定">选择绑定</h3>
+   <p>选择绑定帮助确定一个可选值是不是包含了一个值，如果包含，把该值转化成一个临时常量或者变量。选择绑定可以用在if或while语句中，用来在可选类型外部检查是否有值并提取可能的值。if和while语句详见<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/ControlFlow.html#//apple_ref/doc/uid/TP40014097-CH9-XID_153" title="ControlFlow">ControlFlow</a>。</p>
+   <p>方法如下：</p>
+   <pre><code>if let constantName = someOptional {
+   statements
+   }</code></pre>
+   <p>那么上一个例子也可以改写为：</p>
+   <pre><code>if let actualNumber = possibleNumber.toInt() {
+   println(&quot;\(possibleNumber) has an integer value of \(actualNumber)&quot;)
+   } else {
+   println(&quot;\(possibleNumber) could not be converted to an integer&quot;)
+   }
+   // prints &quot;123 has an integer value of 123&quot;</code></pre>
+   <p>上述代码理解起来不难：如果possibleNumber.toInt 返回的这个可选Int类型包含一个值，那么定义一个常量actualNumber来等于这个值，并在 后续代码中直接使用。</p>
+   <p>如果转换是成功的，那么actualNumber常量在if的第一个分支可用，并且被初始化为可选类型包含的值，同时也不需要使用！前缀。这个例子里，actualNumber只是简单的被用来打印结果。</p>
+   <p>常量和变量都可以用来做可选绑定。如果你想要在if第一个分支修改actualNumber的值，可以写成if var actualNumber， actualNumber就成为一个变量从而可以被修改。</p>
+   <h3 id="nil">nil</h3>
+   <p>可以给可选类型指定一个特殊的值nil：</p>
+   <pre><code>var serverResponseCode: Int? = 404
+   // serverResponseCode contains an actual Int value of 404
+   serverResponseCode = nil
+   // serverResponseCode now contains no value</code></pre>
+   <p>如果你定义了一个可选类型并且没有给予初始值的时候，会默认设置为nil</p>
+   <p>var surveyAnswer: String? // surveyAnswer is automatically set to nil</p>
+   <blockquote>
+   <p>注: Swift 的nil不同于Object-C中的nil. Object-C中，nil是一个指针指向不存在的对象。Swift中，nil不是指针而是一个特定类型的空值。任何类型的可选变量都可以被设为nil，不光是指针。</p>
+   </blockquote>
+   <h3 id="隐式解包可选类型">隐式解包可选类型</h3>
+   <p>在上面的例子中，可选类型表示一个常量/变量可以没有值。可选类型可以被if语句检测是否有值，并且可以被可选绑定解包。</p>
+   <p>但是在一些情况下，可选类型是一直有效的，那么可以通过定义来隐式地去掉类型检查，强制使用可选类型。这些可选类型被成为隐式解包的可选类型。你可以直接在类型后面加! 而不是？来指定。</p>
+   <p>隐式解包的可选类型主要用在一个变量/常量在定义瞬间完成之后值一定会存在的情况。这主要用在类的初始化过程中，详见<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-XID_60" title="Unowned References and Implicitly Unwrapped Optional Properties.">Unowned References and Implicitly Unwrapped Optional Properties.</a></p>
+   <p>隐式解包的可选类型本质是可选类型，但是可以被当成一般类型来使用，不需要每次验证值是否存在。如下的例子展示了可选类型和解包可选类型之间的区别。</p>
+   <pre><code>let possibleString: String? = &quot;An optional string.&quot;
+   println(possibleString!) // requires an exclamation mark to access its value
+   // prints &quot;An optional string.&quot;
+   
+   let assumedString: String! = &quot;An implicitly unwrapped optional string.&quot;
+   println(assumedString) // no exclamation mark is needed to access its value
+   // prints &quot;An implicitly unwrapped optional string.&quot;</code></pre>
+   <p>你可以把隐式解包可选类型当成对每次使用的时候自动解包的可选类型。即不是每次使用的时候在变量/常量后面加！而是直接在定义的时候加。</p>
+   <blockquote>
+   <p>注：如果一个隐式解包的可选类型不包含一个实际值，那么对它的访问会抛出一个运行时错误。在变量/常量名后面加！的情况也是一样的。</p>
+   </blockquote>
+   <p>你依然可以把解包可选类型当成正常的可选类型来探测是否有值。</p>
+   <pre><code>if assumedString {
+   println(assumedString)
+   }
+   // prints &quot;An implicitly unwrapped optional string.&quot;</code></pre>
+   <p>或者通过选择绑定检查</p>
+   <pre><code>if let definiteString = assumedString {
+   println(definiteString)
+   }
+   // prints &quot;An implicitly unwrapped optional string.&quot;</code></pre>
+   <blockquote>
+   <p>注：如果一个可选类型存在没有值的可能的话，不应该使用解包可选类型。这种情况下，一定要使用正常的可选类型。</p>
+   </blockquote>
+   <h2 id="断言">断言</h2>
+   <p>可选类型让编程人员可以在运行期检测一个值是否存在，然后使用代码来处理不存在的情况。但是有些情况下，如果一个值 不存在或者值不满足条件会直接影响代码的执行，这个时候就需要使用断言。这种情况下，断言结束程序的执行从而提供调试的依据。</p>
+   <h3 id="使用断言调试">使用断言调试</h3>
+   <p>断言是一种实时检测条件是否为true的方法，也就是说，断言假定条件为true。断言保证了后续代码的执行依赖于条件的成立。如果条件满足，那么代码继续执行，如果这个条件为false，那么代码将会中断执行。</p>
+   <p>在Xcode中，在调试的时候如果中断，可以通过查看调试语句来查看断言失败时的程序状态。断言也能提供适合的debug信息。 使用全局函数assert来使用断言调试，assert函数接受一个布尔表达式和一个断言失败时显示的消息，如：</p>
+   <pre><code>let age = -3
+   assert(age &gt;= 0, &quot;A person&#39;s age cannot be less than zero&quot;)
+   // this causes the assertion to trigger, because age is not &gt;= 0</code></pre>
+   <p>当前一个条件返回false的时候，后面的错误日志将会输出。</p>
+   <p>在这个例子中，只有当age &gt;= 0的时候，条件被判定为true，但是age = -3,所以条件判定为false，输出错误日志 &quot;A person's age cannot be less than zero&quot;。</p>
+   <p>当然错误日志也可以省略，但是这样不利于调试，如</p>
+   <pre><code>assert(age &gt;= 0)</code></pre>
+   <h3 id="使用断言的时机">使用断言的时机</h3>
+   <p>当需要检测一个条件可能是false，但是代码运行必须返回true的时候使用。下面给出了一些常用场景，可能会用到断言检测：</p>
+   <ul>
+   <li>传递一个整数类型下标的时候，比如作为数组的Index，这个值可能太小或者太大，从而造成数组越界；</li>
+   <li>传递给函数的参数，但是一个无效的参数将不能在该函数中执行</li>
+   <li>一个可选类型现在是nil，但是在接下来的代码中，需要是非nil的值才能够继续运行。</li>
+   </ul>
+   <p>详见 <a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Subscripts.html#//apple_ref/doc/uid/TP40014097-CH16-XID_393" title="Subscripts">Subscripts</a>和<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Functions.html#//apple_ref/doc/uid/TP40014097-CH10-XID_204" title="Functions">Functions</a></p>
+   <blockquote>
+   <p>注：断言会导致程序运行的中止，所以如果异常是预期可能发生的，那么断言是不合适的。这种情况下，异常是更合适的。断言保证错误在开发过程中会被发现，发布的应用里最好不要使用。</p>
+   </blockquote>
+   <hr/>
+   
+   <p>感谢翻译小组成员：李起攀(<a href="http://weibo.com/liqipan" title="李起攀">微博</a>)、若晨(<a href="http://weibo.com/u/2508964602," title="若晨">微博</a>)、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾(<a href="http://weibo.com/guyiguy" title="微博">微博</a>)，校对：CXH_ME(<a href="http://weibo.com/sdqxcxh">微博</a>)</p>
+   <p>本文由翻译小组成员原创发布，个人转载请注明出处和原始链接，商业转载请联系我们~ 感谢您对我们工作的支持~</p>
+   </body>
+</html>

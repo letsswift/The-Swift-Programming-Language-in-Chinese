@@ -1,0 +1,123 @@
+% % xetex/xelatex 字体设定宏包
+
+\ProvidesPackage{zhfontcfg}
+\usepackage[boldfont,slantfont,CJKchecksingle, CJKnumber]{xeCJK}
+
+\usepackage{indentfirst} %首行缩进
+\setlength{\parindent}{2em}
+
+%将系统字体名映射为逻辑字体名称，主要是为了维护的方便
+\newcommand\fontnamehei{Adobe Heiti Std}
+\newcommand\fontnamesong{Adobe Song Std}
+%\newcommand\fontnamekai{Adobe Kaiti Std}
+%\newcommand\fontnamehei{SimHei}
+%\newcommand\fontnamehei{Microsoft YaHei}
+%\newcommand\fontnamesong{SimSun}
+\newcommand\fontnamekai{Kaiti}
+%\newcommand\fontnamemono{Times New Roman}
+%\newcommand\fontnameroman{Times New Roman}
+\newcommand\fontnamemono{DejaVu Sans Mono}
+\newcommand\fontnameroman{DejaVu Sans Mono}
+\newcommand\fontnamexingkai{STXingkai}
+
+%设置常用中文字号，方便调用
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont}
+\newcommand{\dayihao}{\fontsize{31.5pt}{\baselineskip}\selectfont}
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}
+\newcommand{\xiaoyihao}{\fontsize{24pt}{\baselineskip}\selectfont}
+\newcommand{\erhao}{\fontsize{22pt}{\baselineskip}\selectfont}
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}
+\newcommand{\sanhao}{\fontsize{16pt}{\baselineskip}\selectfont}
+\newcommand{\xiaosanhao}{\fontsize{15pt}{\baselineskip}\selectfont}
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}
+\newcommand{\liuhao}{\fontsize{7.5pt}{\baselineskip}\selectfont}
+
+%设置文档正文字体为宋体
+\setCJKmainfont[BoldFont=\fontnamesong]{\fontnamesong}
+\setCJKsansfont[BoldFont=\fontnamehei]{\fontnamehei}
+\setCJKmonofont{\fontnamemono}
+
+%楷体
+\setCJKfamilyfont{KAI}{\fontnamekai}
+\newcommand{\kai}[1]{{\CJKfamily{KAI}#1}}
+\newcommand{\kkai}{\CJKfamily{KAI}}
+
+%黑体
+\setCJKfamilyfont{HEI}{\fontnamehei}
+\newcommand{\hei}[1]{{\CJKfamily{HEI}#1}}
+\newcommand{\hhei}{\CJKfamily{HEI}}
+
+%宋体
+\setCJKfamilyfont{SONG}{\fontnamesong}
+\newcommand{\song}[1]{{\CJKfamily{SONG}#1}}
+\newcommand{\ssong}{\CJKfamily{SONG}}
+
+%行楷
+\setCJKfamilyfont{XINGKAI}{\fontnamexingkai}
+\newcommand{\xingkai}[1]{{\CJKfamily{XINGKAI}#1}}
+\newcommand{\xxingkai}{\CJKfamily{XINGKAI}}
+
+%英文
+\newfontfamily\ENF{\fontnameroman}
+\newcommand{\en}[1]{\,{\ENF#1}\,}
+
+
+
+%%%%%%%%%% 一些重定义 %%%%%%%%%%
+\renewcommand{\contentsname}{目录}     % 将Contents改为目录
+\renewcommand{\abstractname}{摘要}     % 将Abstract改为摘要
+\renewcommand{\refname}{参考文献}      % 将References改为参考文献
+\renewcommand{\indexname}{索引}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\appendixname}{附录}
+\renewcommand{\listfigurename}{图目录}
+\renewcommand{\listtablename}{表目录}
+
+%%%%%%%%%% 定理类环境的定义 %%%%%%%%%%
+%% 必须在导入中文环境之后
+\newtheorem{zhexample}{例}             % 整体编号
+\newtheorem{zhalgorithm}{算法}
+\newtheorem{zhtheorem}{定理}[section]  % 按 section 编号
+\newtheorem{zhdefinition}{定义}
+\newtheorem{zhaxiom}{公理}
+\newtheorem{zhproperty}{性质}
+\newtheorem{zhproposition}{命题}
+\newtheorem{zhlemma}{引理}
+\newtheorem{zhcorollary}{推论}
+\newtheorem{zhremark}{注解}
+\newtheorem{zhcondition}{条件}
+\newtheorem{zhconclusion}{结论}
+\newtheorem{zhassumption}{假设}
+
+%%%%%%%%%%%%
+%% the chapter title format  三号黑体  第一章
+%%
+\def\CTEX@chapter@nameformat{\bfseries\heiti\zihao{3}}
+\def\CTEX@chapter@titleformat{\bfseries\heiti\zihao{3}}
+\def\CTEX@chapter@beforeskip{20\p@}
+\def\CTEX@chapter@afterskip{14\p@}
+%%
+%% the section title format   四号黑体  第一节
+%%
+\def\CTEX@section@format{\bfseries\heiti\zihao{4}\centering}
+\def\CTEX@section@beforeskip{-14pt \@plus -1ex \@minus -.2ex}
+\def\CTEX@section@afterskip{3pt \@plus .2ex}
+%%
+%% the subsection title format   小四号黑体  一、×××
+%%
+\def\CTEX@subsection@format{\bfseries\heiti\zihao{-4}}
+\def\CTEX@subsection@indent{2\ccwd}
+\def\CTEX@subsection@beforeskip{-8pt \@plus -1ex \@minus -.2ex}
+\def\CTEX@subsection@afterskip{2pt \@plus .2ex}
+%%
+%% the subsubsection title format  小四号  （一）×××
+%%
+\def\CTEX@subsubsection@format{\bfseries\heiti\zihao{-4}}
+\def\CTEX@subsubsection@indent{2\ccwd}
+\def\CTEX@subsubsection@beforeskip{-8pt \@plus -1ex \@minus -.2ex}
+\def\CTEX@subsubsection@afterskip{2pt \@plus .2ex}
