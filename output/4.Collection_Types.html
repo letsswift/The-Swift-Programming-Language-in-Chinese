@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <meta content="all" name="robots" />
+     <meta name="author" content="" />
+     <meta name="Copyright" content="" />
+     <meta name="description" content="" />
+     <meta name="keywords"content="" />
+     <link rel="icon" href="" type="image/x-icon" />
+     <link rel="shortcut icon" href="" type="image/x-icon" />
+     <link rel="stylesheet" rev="stylesheet" href="" type="text/css" media="all" />
+     <title>{}</title>
+   </head>
+   <body>
+   <h1 id="集合类型">集合类型</h1>
+   <p>Swift 提供两种集合类型来存储集合，数组和字典。数组是一个同类型的序列化列表集合。字典是一个能够使用类似于键的唯一标识符来获取值的非序列化集合。</p>
+   <p>在Swift中，数组和字典的键和值都必须明确它的类型。这意味这数组和字典不会插入一个错误的类型的值,以致于出错。这也意味着当你在数组和字典中取回数值的时候能够确定它的类型。</p>
+   <p>Swift 使用确定的集合类型可以保证代码工作是不会出错，和让你在开发阶段就能更早的捕获错误。</p>
+   <blockquote>
+   <p>note： Swift的数组 储存不同的类型会展示出不同的行为，例如变量，常量或者 函数和方法。更多的信息参见Mutability of Collections and Assignment 和 Copy Behavior for Collection Types.</p>
+   </blockquote>
+   <h2 id="数组">数组</h2>
+   <p>数组是储存同类型不同值的序列化列表。同样的值可以在数组的不同位置出现多次。</p>
+   <p>Swift数组是储存确定的值，这个Objective-C中的NSArray和NSMutableArray类是有区别的。因为它们是储存各种的对象，而且并不提供返回任何有关对象的具体信息。在Swift中，无论是确定的声明，还是隐式的声明，数组是非常确定它自身是储存什么样的类型，而且，它并不一定要求储存的是类对象。所以Swift数组是类型安全的，因为它一直都确定它自身所能包含的值。</p>
+   <h3 id="数组的简略语法">数组的简略语法</h3>
+   <p>定义数组的完整写法是Array<SomeType>。其中SomeType是你想要包含的类型。你也可以使用类似于SomeType[]这样的简略语法。虽然这两种方法在功能上是相同的。但是我们更推荐后者，而且它会一直贯穿于本书。</p>
+   <h3 id="数组实量array-literals">数组实量（Array Literals）</h3>
+   <p>你可以用一个数组实量（Array Literals）来初始化一个数组，它是用简略写法来创建一个包含一个或多个的值的数组。一个数组实量（Array Literals）是由它包含的值，“,”分隔符 已经包括以上内容的中括号对“[]”组成：</p>
+   <pre><code>[value 1, value 2, value 3]</code></pre>
+   <p>下面的例子创建一个叫shoppinglist，储存字符串（String）类型的数组。</p>
+   <pre><code>var shoppingList: String[] = [&quot;Eggs&quot;, &quot;Milk&quot;]
+   // 使用两个初始化参数来初始化shoppingList</code></pre>
+   <p>shoppinglist变量被定义为字符串（String）类型的数组，写作String[]。因为这个数组被确定为字符串类型（String），所以它只能储存字符串（String）类型的值。在这里，用两个字符串类型的值（”Eggs” and “Milk”）和数组实量（Array Literals）的写法来初始化shoppingList数组。</p>
+   <blockquote>
+   <p>注意 shoppingList数组是被定义为一个变量（使用var 标识符）而不是常量（使用let 标识符），所以在下面的例子可以直接添加元素。</p>
+   </blockquote>
+   <p>在这个例子中，数组实量（Array Literals）只包含两个字符串类型的值，这符合了shoppingList变量的定义（只能包含字符串（String）类型的数组），所以被分配的数组实量（Array Literals）被允许用两个字符串类型的值来初始化。</p>
+   <p>得益于Swift的类型推断，当你用相同类型的值来初始化时，你可以不写明类型。初始化shoppingList可以用下面这个方法来代替。</p>
+   <pre><code>var shoppingList = [&quot;Eggs&quot;, “Milk&quot;]</code></pre>
+   <p>因为数组实量（Array Literals）中所有的值都是同类型的，所以Swift能够推断shoppingList的类型为字符串数组（String[]）。</p>
+   <h3 id="读取和修改数组">读取和修改数组</h3>
+   <p>你可以通过方法和属性，或者下标来读取和修改数组。</p>
+   <p>通过只读属性count来读取数组的长度；</p>
+   <pre><code>println(&quot;The shopping list contains \(shoppingList.count) items.&quot;)
+   // prints &quot;The shopping list contains 2 items.”</code></pre>
+   <p>通过一个返回布尔类型的isEmpty属性检查数组的长度是否为0</p>
+   <pre><code>if shoppingList.isEmpty {     println(&quot;The shopping list is empty.&quot;)
+   } else {     println(&quot;The shopping list is not empty.&quot;)
+   }
+   // prints &quot;The shopping list is not empty.&quot;</code></pre>
+   <p>在数组末尾增加一个元素可以通过append方法</p>
+   <pre><code>shoppingList.append(&quot;Flour&quot;)
+   // shoppingList 现在包含3个元素</code></pre>
+   <p>甚至，还可以用（+=）操作符来把一个元素添加到数组末尾</p>
+   <pre><code>shoppingList += &quot;Baking Powder&quot;
+   // shoppingList 现在包含4个元素</code></pre>
+   <p>你也可以用（+=）操作符来把一个数组添加到另一个数组的末尾</p>
+   <pre><code>shoppingList += [&quot;Chocolate Spread&quot;, &quot;Cheese&quot;, &quot;Butter&quot;]
+   // shoppingList 现在包含7个元素</code></pre>
+   <p>从数组中取出一个值可以使用下标语法。如果你知道一个元素的索引值，你可以数组名后面的中括号中填写索引值来获取这个元素</p>
+   <pre><code>var firstItem = shoppingList[0]
+   // firstItem 等于 “Eggs&quot;</code></pre>
+   <p>注意，数组的第一个元素的索引值为0，不为1，Swift的数组总是索引0；</p>
+   <p>你可以使用下标语法通过索引修改已经存在的值。</p>
+   <pre><code>shoppingList[0] = &quot;Six eggs&quot;
+   //列表中的第一个值等于&quot;Six eggs&quot; 而不等于 “Eggs&quot;</code></pre>
+   <p>你可以使用下标语法一次性改变一系列的值，尽管修改的区域远远大于要修改的值。在下面的雷子中， 替换掉 “Chocolate Spread”, “Cheese”,”Butter”,”Bananas”,”Apples”:</p>
+   <pre><code>shoppingList[4...6] = [&quot;Bananas&quot;, &quot;Apples&quot;]
+   // shoppingList 现在包含6个元素</code></pre>
+   <blockquote>
+   <p>注意，你不能使用下标语法在数组中添加一个元素，如果你尝试使用下标语法来获取或者设置一个元素，你将得到一个运行时的错误。尽管如此，你可以通过count属性验证索引是否正确再使用它。当count为0时（意味着数组为空），则count－1超出了索引的有效范围，因为数组的索引总是从0开始。</p>
+   </blockquote>
+   <p>在一个特定的索引位置插入一个值，可以使用insert(atIndex:)方法</p>
+   <pre><code>shoppingList.insert(&quot;Maple Syrup&quot;, atIndex: 0)
+   // shoppingList 现在包含7个元素
+   // &quot;Maple Syrup&quot; 在数组的第一位</code></pre>
+   <p>这里调用insert方法指明在shoppingList的索引为0的位置中插入一个新元素 “Maple Syrup”</p>
+   <p>同理，你可以调用removeAtIndex方法移除特定的元素。这个方法移除特定索引位置的元素，已经返回这个被移除的元素（尽管你并不关心这个返回值）。</p>
+   <pre><code>let mapleSyrup = shoppingList.removeAtIndex(0)
+   // 索引位置为0的元素被移除
+   // shoppingList 现在包含6个元素, 不包括 Maple Syrup
+   // mapleSyrup 常量等于被移除的 &quot;Maple Syrup&quot; 字符串</code></pre>
+   <p>当元素被移除的，数组空缺的位置将会被填补，所以现在索引位置为0的元素再一次等于”Six eggs”:</p>
+   <pre><code>firstItem = shoppingList[0]
+   // firstItem 现在等于 &quot;Six eggs”</code></pre>
+   <p>如果你从数组中移除最后一个元素，使用removeLast方法比removeAtIndex更方便，因为后者需要通过count属性计算数组的长度。和removeAtIndex方法一样，removeLast会返回被移除的元素。</p>
+   <pre><code>let apples = shoppingList.removeLast()
+   //元素的最后一个元素被移除
+   // shoppingList 现在包含5个元素，不包括 cheese
+   // apples 常量 现在等于被移除的 &quot;Apples&quot; string</code></pre>
+   <h3 id="遍历数组">遍历数组</h3>
+   <p>可以使用for－in循环来遍历数组中的值</p>
+   <pre><code>for item in shoppingList {     println(item)
+   }
+   // Six eggs
+   // Milk
+   // Flour
+   // Baking Powder
+   // Bananas</code></pre>
+   <p>如果需要每一个元素的整形的索引值，使用enumerate函数代替会更方便，enumerate函数对于每一个元素都会返回一个包含元素的索引和值的元组（tuple）。你可以在遍历部分分解元祖并储存在临时变量或者常量中。</p>
+   <pre><code>for (index, value) in enumerate(shoppingList) {     println(&quot;Item \(index + 1): \(value)&quot;)
+   }
+   // 元素 1: Six eggs
+   // 元素 2: Milk
+   // 元素 3: Flour
+   // 元素 4: Baking Powder
+   // 元素 5: Bananas</code></pre>
+   <p>如需更多for-in 循环信息, 参见 For Loops.</p>
+   <h3 id="创建和初始化数组">创建和初始化数组</h3>
+   <p>创建一个空的数组和确定的类型（不包含初始化值）使用的初始化语法：</p>
+   <pre><code>var someInts = Int[]()
+   println(&quot;someInts is of type Int[] with \(someInts.count) items.&quot;)
+   // prints &quot;someInts is of type Int[] with 0 items.”</code></pre>
+   <p>注意，someInt变量被确定为Int[]，因为它使用生成Int[]的初始化方法。</p>
+   <p>或者，如果上下文（context）已经提供类型信息，例如函数参数或者已经确定类型的常量和变量，你可以从空的数组实量（Array Literals）创建一个空数组，写作[]（空的中括号对）。</p>
+   <pre><code>someInts.append(3)
+   // someInts 现在包含1个Int型的元素
+   someInts = []
+   // someInts 现在是一个空的数组, 但是类型仍然为Int[];</code></pre>
+   <p>Swift数组类型也提供初始化方法来创建确定长度和提供默认数值的数组。你可以通过这个初始化方法增加一个新的数组，元素的数量成为count，合适的默认值为repeatedValue</p>
+   <pre><code>var threeDoubles = Double[](count: 3, repeatedValue: 0.0)
+   // threeDoubles 的类型为 Double[], 以及等于 [0.0, 0.0, 0.0]</code></pre>
+   <p>得益于类型推断，你并不需要指明这个数组储存的类型就能使用这个初始化方法，因为它从默认值中就能推断出来。</p>
+   <pre><code>var anotherThreeDoubles = Array(count: 3, repeatedValue: 2.5)
+   // anotherThreeDoubles 被推断为 Double[], 以及等于 [2.5, 2.5, 2.5]</code></pre>
+   <p>最后，你可以使用（+）操作符就能创建一个新的数组，把两个存在的数组添加进来 这个新的数组类型从你添加的两个数组中推断出来</p>
+   <pre><code>var sixDoubles = threeDoubles + anotherThreeDoubles
+   // sixDoubles 被推断为 Double[], 并等于 [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]</code></pre>
+   <h2 id="字典">字典</h2>
+   <p>字典是储存同一类型但是不同值的容器。每一个值都对应这一个唯一的键（Key），就像是字典内的每一个值都有一个标识符。和数组内的元素是有区别的，字典内的元素是没有特殊的序列的。当你需要根据标识符来查找批量的值时，就可以使用字典。同样的，真实 的物品字典常常用来当作查找特定字典的标识符。</p>
+   <p>Swift字典时储存一个类型的具体的键和值，和Objective-C的NSDictionary 和NSMutableDictionary由一定的区别，因为它们是使用各种的对象来作为它们的键和值，而且并不提供任何有关对象的具体信息。在Swift中，对于一个特定的字典，它所能储存的键和值都是确定的，无论是明确声明的类型还是隐式推断的类型。</p>
+   <p>Swift的字典写法是Dictionary<KeyType,ValueType>,KeyType是你想要储存的键，ValueType是你想要储存的值。</p>
+   <p>唯一的限制就是KeyType必须是可哈希的（hashable）——就是提供一个形式让它们自身是独立识别的。Swift的所有基础类型（例如字符串（String）,整形（Int），双精度（Double）和布尔（Bool））在默认是可哈希的（hashable），和这些类型都常常用语当作字典的键。枚举成员值不需要协助值（associated values）（具体描述在 Enumerations）也是因为它们默认也是可哈希的（hashable）。</p>
+   <h3 id="字典实量dictionary-literals">字典实量（Dictionary Literals）</h3>
+   <p>你可以直接用一个字典实量（Dictionary Literals）初始化一个字典。和前面定义一个数组实量（Array Literals）的语法一样。字典实量（Dictionary Literals）就是使用简略写法直接写一个或者多个的键值对来定义一个字典。</p>
+   <p>一个键值对是一个键和值的组合。在字典实量（Dictionary Literals）里面，每一个键值对总是用一个冒号把键和值分割。键值对的写法就想是一个列表，使用逗号分割，并被一对中括号［］包含着：</p>
+   <pre><code>[key 1: value 1, key 2: value 2, key 3: value 3]</code></pre>
+   <p>在下面的例子，将会创建一个字典来储存国际机场的名字。在这个字典里面，键是三个字的国际航空运送协会代码，以及它的值是机场的名称：</p>
+   <pre><code>var airport :Dictionary&lt;String, String&gt; = [&quot;TYO&quot;: &quot;Tokyo&quot;, &quot;DUB&quot;: “Dublin&quot;]</code></pre>
+   <p>airport字典被定义为一个类型为Dictionary<String, String>，这意味这，这个字典的键类型是字符串String，和它的值的类型也是String。</p>
+   <blockquote>
+   <p>注意 airport字典是被定义为一个变量（使用var 标识符）而不是常量（使用let 标识符），所以在下面的例子可以直接添加元素。</p>
+   </blockquote>
+   <p>airport字典使用一个包含两个键值对的字典实量（Dictionary Literals）来初始化。第一对由一个叫“TYO”的键和一个叫“Tokyo”的值，第二对有一个叫“DUB”的键和一个叫“Dublin”的值。</p>
+   <p>这个字典实量（Dictionary Literals）包含两个字符串（String）：字符串对。这符合airport变量定义的类型（一个字典只包括字符串（String）键和字符串（String）值），所以在分配字典实量（Dictionary Literals）的时候被允许作为airport字典的两个初始化元素。</p>
+   <p>和数组一样，如果你初始化一个字典的时候使用相同的类型，你可以不指明字典的类型。 airport初始化可以用下面这个简略写法来代替：</p>
+   <pre><code>var airports = [&quot;TYO&quot;: &quot;Tokyo&quot;, &quot;DUB&quot;: “Dublin”]</code></pre>
+   <p>因为所有的键在字面上都是相同的类型，同样，所有的值也是同样的类型，所以Swift可以推断为Dictionary<String, String>是airports字典的正确类型。</p>
+   <h3 id="读取和修改字典">读取和修改字典</h3>
+   <p>你可以通过属性，方法或者下标来读取和修改字典。和数组一样，你使用只读的count属性来检查字典（Dictionary）包含多少个元素。</p>
+   <pre><code> println(&quot;The dictionary of airports contains \(airports.count) items.&quot;)
+   // prints &quot;The dictionary of airports contains 2 items.&quot;</code></pre>
+   <p>你可以使用下标语法给一个字典添加一个元素。使用合适类型作为新的键，并分配给它一个合适的值</p>
+   <pre><code> airports[&quot;LHR&quot;] = &quot;London&quot;
+   //  airports dictionary 现在有 3 items</code></pre>
+   <p>你也可以使用下标语法去改变一个特定键所关联的值。</p>
+   <pre><code>airports[&quot;LHR&quot;] = &quot;London Heathrow&quot;
+   //&quot;LHR&quot; 的值已经被改变为 &quot;London Heathrow&quot;</code></pre>
+   <p>同样, 使用字典的updateValue(forKey:) 方法去设置或者更新一个特定键的值 . 和上面的下标例子一样, updateValue(forKey:) 方法如果键不存在则会设置它的值，如果键存在则会更新它的值, 和下标不一样是, updateValue(forKey:) 方法 如果更新时，会返回原来旧的值rThis enables you to 可以使用这个来判断是否发生了更新。</p>
+   <p>updateValue(forKey:) 方法返回一个和字典的值相同类型的可选值. 例如，如果字典的值的类型时String，则会返回String? 或者叫“可选String“，这个可选值包含一个如果值发生更新的旧值和如果值不存在的nil值。</p>
+   <pre><code>if let oldValue = airports.updateValue(&quot;Dublin International&quot;, forKey: &quot;DUB&quot;) {
+   println(&quot;The old value for DUB was \(oldValue).&quot;)
+   }
+   // prints &quot;The old value for DUB was Dublin.&quot;</code></pre>
+   <p>你也可以使用下标语法通过特定的键去读取一个值。因为如果他的值不存在的时候，可以返回他的键，字典的下标语法会返回一个字典的值的类型的可选值。如果字典中的键包含对应的值，这字典下标语法会返回这个键所对应的值，否则返回nil</p>
+   <pre><code> if let airportName = airports[&quot;DUB&quot;] {
+    println(&quot;The name of the airport is \(airportName).&quot;)
+    } else {
+   println(&quot;That airport is not in the airports dictionary.&quot;)
+    }
+   // prints &quot;The name of the airport is Dublin International.&quot;</code></pre>
+   <p>你可以使用下标语法把他的值分配为nil，来移除这个键值对。</p>
+   <pre><code>airports[&quot;APL&quot;] = &quot;Apple International&quot;
+   // &quot;Apple International&quot; 不是 APL的真实机场,所以删除它
+   airports[&quot;APL&quot;] = nil
+   // APL 已经从字典中被移除</code></pre>
+   <p>同样，从一个字典中移除一个键值对可以使用removeValueForKey方法，这个方法如果存在键所对应的值，则移除一个键值对，并返回被移除的值，否则返回nil。</p>
+   <pre><code>if let removedValue = airports.removeValueForKey(&quot;DUB&quot;) {
+   println(&quot;The removed airport&#39;s name is \(removedValue).&quot;)
+   } else {
+   println(&quot;The airports dictionary does not contain a value for DUB.&quot;)
+   }
+   // prints &quot;The removed airport&#39;s name is Dublin International.&quot;</code></pre>
+   <h3 id="遍历字典">遍历字典</h3>
+   <p>你可以使用一个for-in循环来遍历字典的键值对。字典中的每一个元素都会返回一个元祖（tuple），你可以在循环部分分解这个元祖，并用临时变量或者常量来储存它。</p>
+   <pre><code>for (airportCode, airportName) in airports {
+   println(&quot;\(airportCode): \(airportName)&quot;)
+   }
+   // TYO: Tokyo
+   // LHR: London Heathrow</code></pre>
+   <p>更多有关for-in 循环的信息, 参见 For Loops.</p>
+   <p>你也可以读取字典的keys属性或者values属性来遍历这个字典的键或值的集合。</p>
+   <pre><code>for airportCode in airports.keys {
+   println(&quot;Airport code: \(airportCode)&quot;)
+   }
+   // Airport code: TYO
+   // Airport code: LHR
+   for airportName in airports.values {
+   println(&quot;Airport name: \(airportName)&quot;)
+   }
+   // Airport name: Tokyo
+   // Airport name: London Heathrow</code></pre>
+   <p>如果你需要一个接口来创建一个字典的键或者值的数组实例，你可以使用keys或者values属性来初始化一个数值。</p>
+   <pre><code>let airportCodes = Array(airports.keys)
+   // airportCodes is [&quot;TYO&quot;, &quot;LHR&quot;]
+   let airportNames = Array(airports.values)
+   // airportNames is [&quot;Tokyo&quot;, &quot;London Heathrow&quot;]</code></pre>
+   <blockquote>
+   <p>注意 Swift中的字典类型是非序列化集合，如果你需要序列化取回键，值，或者键值对，遍历字典不具体叙述。</p>
+   </blockquote>
+   <h3 id="创建一个空字典">创建一个空字典</h3>
+   <p>和字典一样，你可以使用确定类型的语法创建一个空的字典。</p>
+   <pre><code>var namesOfIntegers = Dictionary&lt;Int, String&gt;()
+   // namesOfIntegers 是一个空的 Dictionary&lt;Int, String&gt; 类型的字典</code></pre>
+   <p>这个例子创建一个Int，String类型的字典来储存可读性较好的整数值。它的键是Int类型，以及它们的值是String类型。</p>
+   <p>如果 上下文（context ）中已经提供类型信息，可用一个字典实量（Dictionary Literal）创建一个空的字典，写作[;]（由一对［］包含一个冒号：）</p>
+   <pre><code>namesOfIntegers[16] = &quot;sixteen&quot;
+   // namesOfIntegers现在包含1 个键值对
+   namesOfIntegers = [:]
+   // namesOfIntegers 是一个类型为Int, String的空字典。</code></pre>
+   <blockquote>
+   <p>注意 在这个场景，Swift数组和字典类型是一个内置的集合。更多的内置类型和集合参见Generics</p>
+   </blockquote>
+   <h2 id="可变集合类型">可变集合类型</h2>
+   <p>数组和字典都是在一个集合中一起储存不同的变量.如果你创建一个数组或者字典，再包含一个变量，创建的这个变量被称为可变的（mutable） 这意味这，你可以在创建之后增加更多的元素来改变这个集合的长度，或者移除已经包含的。 相反的, 如果你把一个数组或者字典定义为常量，则这个数组或者字典不是可变的，他们的长度并不能被改变。</p>
+   <p>在字典中，不可变也意味着你不能替换已经存在的键的值。一个不可变字典，一旦被设置就不能改变。</p>
+   <p>数组的不可变有一点点的不同。然而，你仍然不能做任何有可能修改不可变数组的行为。但是你可以重新设置一个已经存在的索引，这使得当Swift的数组的长度确定时，能更好地优化数组的性能。</p>
+   <p>拥有可变行为的数组也影响着数组实例的分配和修改，更多内容参见Assignment and Copy Behavior for Collection Types.</p>
+   <blockquote>
+   <p>注意 在所有的例子中，这是一个好的练习去创建不可变集合，当数组的长度不需要被改变。 我确信Swift编译器能优化好你所创建的集合。</p>
+   </blockquote>
+   </body>
+</html>
