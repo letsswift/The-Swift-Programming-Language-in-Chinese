@@ -11,15 +11,15 @@ Created using [pandoc][1] and [Markdown][2].
 
 the default value of build.py is html. It will use default.html as a template and turn all markdown files in root dir into html in output dir. Then you can preview it in your browser.
 
-Pdf/beamer tranform needs Latex (actual Xetex). TexLive is suggested.
+Pdf/beamer tranformation needs Latex (actual Xetex). TexLive is suggested.
 
 Tested under Ubuntu and Windows7.
 
-##markdown grammar
+##Markdown Grammar
 
-see [this] for refrence.
+see [this][4] for refrence.
 
-##tools
+##Tools
 
 - [pandoc][5]
 - [sublime][6]
@@ -30,9 +30,9 @@ see [this] for refrence.
 [2]:http://wowubuntu.com/markdown/ "markdown"
 [3]:https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097-CH3-XID_0 ""
 [4]:http://wowubuntu.com/markdown/ "Markdown 语法说明 (简体中文版)"
-[5]:
-[6]:
-[7]:
+[5]:http://johnmacfarlane.net/pandoc/installing.html "pandoc"
+[6]:http://www.sublimetext.com/ "sublime"
+[7]:http://www.vim.org/download.php "vim"
 
 
 感谢翻译小组成员：李起攀([微博](http://weibo.com/liqipan "李起攀"))、若晨([微博](http://weibo.com/u/2508964602, "若晨"))、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾([微博](http://weibo.com/guyiguy "微博"))，校对：CXH_ME([微博](http://weibo.com/sdqxcxh))
