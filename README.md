@@ -28,7 +28,7 @@ see [this][4] for refrence.
 
 [1]:http://johnmacfarlane.net/pandoc/ "pandoc"
 [2]:http://wowubuntu.com/markdown/ "markdown"
-[3]:https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097-CH3-XID_0 ""
+[3]:https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html "The Swift Programming Language"
 [4]:http://wowubuntu.com/markdown/ "Markdown 语法说明 (简体中文版)"
 [5]:http://johnmacfarlane.net/pandoc/installing.html "pandoc"
 [6]:http://www.sublimetext.com/ "sublime"
