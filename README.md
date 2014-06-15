@@ -9,6 +9,13 @@ Created using [pandoc][1] and [Markdown][2].
 
     build.py [pdf|html|epub|beamer]
 
+    directory needs to be created:
+
+        output  - beamer
+                - pdf
+                - epub
+                - html
+                    - pic
 
 the default value of build.py is html. It will use default.html as a template and turn all markdown files in root dir into html in output dir. Then you can preview it in your browser.
 
