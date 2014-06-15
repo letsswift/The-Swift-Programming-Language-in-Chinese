@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <meta content="all" name="robots" />
+     <meta name="author" content="" />
+     <meta name="Copyright" content="" />
+     <meta name="description" content="" />
+     <meta name="keywords"content="" />
+     <link rel="icon" href="" type="image/x-icon" />
+     <link rel="shortcut icon" href="" type="image/x-icon" />
+     <link rel="stylesheet" rev="stylesheet" href="" type="text/css" media="all" />
+     <title>The-Swift-Programming-Language中文教程</title>
+   </head>
+   <body>
+
+   <h1 id="swift中文教程十三-继承">Swift中文教程（十三） 继承</h1>
+   <p>一个类可以从另外一个类中继承方法，属性或者其它的一些特性。当一个类继承于另外一个类时，这个继承的类叫子类，被继承的类叫父类。继承是Swift中类区别于其它类型的一个基本特征。</p>
+   <p>Swift中的类可以调用父类的方法，使用父类的属性和下标，还可以根据需要使用重写方法或者属性来重新定义和修改他们的一些特性。Swift可以帮助你检查重写的方法和父类的方法定义是相符的。</p>
+   <p>类还可以为它继承的属性添加观察者，这样可以能够让它在一个属性变化的时候得到通知。属性观察者可以被添加给任何属性，不管它之前是存储属性还是计算属性。</p>
+   <h2 id="定义一个基类">定义一个基类</h2>
+   <p>任何一个不继承于其它类的类被称作基类</p>
+   <blockquote>
+   <p>注意：Swift的类不是从一个全局基类继承而来。在你编写代码的时，只要是在类的定义中没有继承自父类的类都是基类。</p>
+   </blockquote>
+   <p>下面的例子定义了一个叫Vehicle的基类。基类包含两个所有交通工具通用的属性numberOfWheels和maxPassengers。这两个属性被一个叫description的方法使用，通过返回一个String描述来作为这个交通工具的特征：</p>
+   <pre><code>class Vehicle {
+       var numberOfWheels: Int
+       var maxPassengers: Int
+       func description() -&gt; String {
+           return &quot;\(numberOfWheels) wheels; up to \(maxPassengers) passengers&quot;
+       }
+       init() {
+           numberOfWheels = 0
+           maxPassengers = 1
+       }
+   }</code></pre>
+   <p>这个交通工具类Vehicle还定义了一个构造函数来设置它的属性。构造函数更多的解释在Initialization一章，但是为了说明子类如何修改继承的属性，这里需要简要解释一下什么叫构造函数。</p>
+   <p>通过构造函数可以创建一个类型的实例。尽管构造函数不是方法，但是它们在编码的时候使用了非常相似的语法。构造函数通过确保所有实例的属性都是有效的来创建一个新的实例。</p>
+   <p>构造函数最简单的形式是使用init关键词的一个类似方法的函数，并且没有任何参数：</p>
+   <pre><code>init() {
+       // perform some initialization here
+   }</code></pre>
+   <p>使用构造函数语法TypeName和空的两个小括号来完成一个Vehicle实例的创建：</p>
+   <pre><code>let someVehicle = Vehicle()</code></pre>
+   <p>Vehicle的构造函数为属性设置了一些初始值(numberOfWheels = 0 然后 maxPassengers = 1)。</p>
+   <p>Vehicle类定义的是一个通用的交通工具特性，它本身没有太多意义，所以就需要冲定义它的一些属性或者方法来让它具有实际的意义。</p>
+   <h2 id="产生子类">产生子类</h2>
+   <p>产生子类就是根据一个已有的类产生新类的过程。子类继承了父类的一些可以修改的特性。还可以为子类添加一些新的特性。</p>
+   <p>为了表明一个类是继承自一个父类，需要将父类的名称写在子类的后面，并且用冒号分隔：</p>
+   <pre><code>class SomeClass: SomeSuperclass {
+       // class definition goes here
+   }</code></pre>
+   <p>下面的例子定义了一种特定叫Bicycle的交通工具。这个新类是基于已有的类Vehicle产生的。书写方式是在类名Bicycle后加冒号加父类Vehicle名。</p>
+   <p>可以理解为：</p>
+   <p>定义一个新的类叫Bicycle，它继承了Vehicle的特性：</p>
+   <pre><code>class Bicycle: Vehicle {
+       init() {
+           super.init()
+           numberOfWheels = 2
+       }
+   }</code></pre>
+   <p>Bicycle是Vehicle的子类，Vehicle是Bicycle的父类。Bicycle类继承了Vehicle所有的特征，比如maxPassengers和numberOfWheels属性。你还可以为Bicycle类添加心的属性。</p>
+   <p>Bicycle类也定义了构造函数，在这个构造函数中调用了父类的构造函数super.init()，这样可以确保在Bicycle修改他们之前，父类已经初始化了。</p>
+   <blockquote>
+   <p>注意：跟Objective-C不同的是，Swift中的构造函数没有默认继承。更多信息可以参考Initializer Inheritance and Overriding这一章节。</p>
+   </blockquote>
+   <p>maxPassengers属性在继承自父类的时候已经被初始化了，对于Bicycle来说是正确的，因此不需要再做更改。然后numberOfWheels是不对的，所以被替换成了2.</p>
+   <p>不仅属性是继承于Vehicle的，Bicycle还继承了父类的方法。如果你创建一个实例，然后调用了已经继承的description方法，可以得到该交通工具的描述并且看到它的属性已经被修改：</p>
+   <pre><code>let bicycle = Bicycle()
+   println(&quot;Bicycle: \(bicycle.description())&quot;)
+   // Bicycle: 2 wheels; up to 1 passengers</code></pre>
+   <p>子类本身也可以作为父类被再次继承：</p>
+   <pre><code>class Tandem: Bicycle {
+       init() {
+           super.init()
+           maxPassengers = 2
+       }
+   }</code></pre>
+   <p>上面的例子创建了Bicycle的子类，叫做tandem，也就可以两个人一起骑的自行车。所以Tandem没有修改numberOfWheels属性，只是更新了maxPassengers属性。</p>
+   <blockquote>
+   <p>注意：子类只能够在构造的时候修改变量的属性，不能修改常量的属性。</p>
+   </blockquote>
+   <p>创建一个Tandem的实例，然后调用description方法检查属性是否被正确修改：</p>
+   <pre><code>let tandem = Tandem()
+   println(&quot;Tandem: \(tandem.description())&quot;)
+   // Tandem: 2 wheels; up to 2 passengers</code></pre>
+   <p>注意到description方法也被Tandem继承了。</p>
+   <h2 id="重写方法">重写方法</h2>
+   <p>子类可以提供由父类继承来的实例方法，类方法，实例属性或者下标的个性化实现。这个特性被称为重写。</p>
+   <p>重写一个由继承而来的方法需要在方法定义前标注override关键词。通过这样的操作可以确保你所要修改的这个方法确实是继承而来的，而不会出现重写错误。错误的重写会造成一些不可预知的错误，所以如果如果不标记override关键词的话，就会被在代码编译时报错。</p>
+   <p>override关键词还能够让Swift编译器检查该类的父类是否有相符的方法，以确保你的重写是可用的，正确的。</p>
+   <h3 id="访问父类方法属性和下标">访问父类方法，属性和下标</h3>
+   <p>当在重写子类继承自父类的方法，属性或者下标的时候，需要用到一部分父类已有的实现。比如你可以重定义已知的一个实现或者在继承的变量中存储一个修改的值。</p>
+   <p>适当的时候，可以通过使用super前缀来访问父类的方法，属性或者下标：</p>
+   <ul>
+   <li><p>叫someMethod的重写方法可以在实现的时候通过super.someMethod()调用父类的someMethod方法。</p></li>
+   <li><p>叫someProperty的重写属性可以在重写实现getter或者setter的时候通过super.someProperty调用父类的someProperty。</p></li>
+   <li><p>叫someIndex的重写下标可以在实现下标的时候通过super[someIndex]来访问父类的下标。</p></li>
+   </ul>
+   <h3 id="复写方法">复写方法</h3>
+   <p>你可以在你的子类中实现定制的继承于父类的实例方法或者类方法。</p>
+   <p>下面的例子演示的就是一个叫Car的Vehicle子类，重写了继承自Vehicle的description方法。</p>
+   <pre><code>class Car: Vehicle {
+       var speed: Double = 0.0
+       init() {
+           super.init()
+           maxPassengers = 5
+           numberOfWheels = 4
+       }
+       override func description() -&gt; String {
+           return super.description() + &quot;; &quot;
+               + &quot;traveling at \(speed) mph&quot;
+       }
+   }</code></pre>
+   <p>Car中定义了一个新的Double类型的存储属性speed。这个属性默认值是0.0，意思是每小时0英里。Car还有一个自定义的构造函数，设置了最大乘客数为5，轮子数量是4.</p>
+   <p>Car重写了继承的description方法，并在方法名description前标注了override关键词。</p>
+   <p>在description中并没有给出了一个全新的描述实现，还是通过super.description使用了Vehicle提供的部分描述语句，然后加上了自己定义的一些属性，如当前速度。</p>
+   <p>如果你创建一个Car的实例，然后调用description方法，会发现描述语句变成了这样：</p>
+   <pre><code>let car = Car()
+   println(&quot;Car: \(car.description())&quot;)
+   // Car: 4 wheels; up to 5 passengers; traveling at 0.0 mph</code></pre>
+   <h3 id="复写属性">复写属性</h3>
+   <p>你还可以提供继承自父类的实例属性或者类属性的个性化getter和setter方法，或者是添加属性观察者来实现重写的属性可以观察到继承属性的变动。</p>
+   <h3 id="重写属性的getters和setters">重写属性的Getters和Setters</h3>
+   <p>不管在源类中继承的这个属性是存储属性还是计算属性，你都可以提供一个定制的getter或者setter方法来重写这个继承属性。子类一般不会知道这个继承的属性本来是存储属性还是计算属性，但是它知道这个属性有特定的名字和类型。在重写的时候需要指明属性的类型和名字，好让编译器可以检查你的重写是否与父类的属性相符。</p>
+   <p>你可以将一个只读的属性通过提那家getter和setter继承为可读写的，但是反之不可。</p>
+   <blockquote>
+   <p>注意：如果你为一个重写属性提供了setter方法，那么也需要提供getter方法。如果你不想在getter中修改继承的属性的值，可以在getter中使用super.someProperty即可，在下面SpeedLimitedCar例子中也是这样。</p>
+   </blockquote>
+   <p>下面的例子定义了一个新类SpeedLimitedCar，是Car的一个子类。这个类表示一个显示在40码一下的车辆。通过重写继承的speed属性来实现：</p>
+   <pre><code>class SpeedLimitedCar: Car {
+       override var speed: Double  {
+       get {
+           return super.speed
+       }
+       set {
+           super.speed = min(newValue, 40.0)
+       }
+       }
+   }</code></pre>
+   <p>每当你要设置speed属性的时候，setter都会检查新值是否比40大，二者中较小的值会被设置给SpeedLimitedCar。</p>
+   <p>如果你尝试为speed设置超过40的值，description的输出依然还是40：</p>
+   <pre><code>let limitedCar = SpeedLimitedCar()
+   limitedCar.speed = 60.0
+   println(&quot;SpeedLimitedCar: \(limitedCar.description())&quot;)
+   // SpeedLimitedCar: 4 wheels; up to 5 passengers; traveling at 40.0 mph</code></pre>
+   <h3 id="重写属性观察者">重写属性观察者</h3>
+   <p>你可以使用属性重写为继承的属性添加观察者。这种做法可以让你无论这个属性之前是如何实现的，在继承的这个属性变化的时候都能得到提醒。更多相关的信息可以参考Property Observers这章。</p>
+   <blockquote>
+   <p>注意：不能为继承的常量存储属性或者是只读计算属性添加观察者。这些属性值是不能被修改的，因此不适合在重写实现时添加willSet或者didSet方法。</p>
+   </blockquote>
+   <blockquote>
+   <p>注意：不能同时定义重写setter和重写属性观察者，如果想要观察属性值的变化，并且又为该属性给出了定制的setter，那只需要在setter中直接获得属性值的变化就行了。</p>
+   </blockquote>
+   <p>下面的代码演示的是一个新类AutomaticCar，也是Car的一个子类。这个类表明一个拥有自动变速箱的汽车，可以根据现在的速度自动选择档位，并在description中输出当前档位：</p>
+   <pre><code>class AutomaticCar: Car {
+       var gear = 1
+       override var speed: Double {
+       didSet {
+           gear = Int(speed / 10.0) + 1
+       }
+       }
+       override func description() -&gt; String {
+           return super.description() + &quot; in gear \(gear)&quot;
+       }
+   }</code></pre>
+   <p>这样就可以实现，每次你设置speed的值的时候，didSet方法都会被调用，来看档位是否需要变化。gear是由speed除以10加1计算得来，所以当速度为35的时候，gear档位为4：</p>
+   <pre><code>let automatic = AutomaticCar()
+   automatic.speed = 35.0
+   println(&quot;AutomaticCar: \(automatic.description())&quot;)
+   // AutomaticCar: 4 wheels; up to 5 passengers; traveling at 35.0 mph in gear 4</code></pre>
+   <h2 id="禁止重写">禁止重写</h2>
+   <p>你可以通过标记final关键词来禁止重写一个类的方法，属性或者下标。在定义的关键词前面标注@final属性即可。</p>
+   <p>在子类中任何尝试重写父类的final方法，属性或者下标的行为都会在编译时报错。同样在扩展中为类添加的方法，属性或者下标也可以被标记为final。</p>
+   <p>还可以在类关键词class前使用@final标记一整个类为final(<span class="citation">@final</span> class)。任何子类尝试继承这个父类时都会在编译时报错。</p>
+   <hr/>
+
+   <p>感谢翻译小组成员：李起攀(<a href="http://weibo.com/liqipan" title="李起攀">微博</a>)、若晨(<a href="http://weibo.com/u/2508964602," title="若晨">微博</a>)、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾(<a href="http://weibo.com/guyiguy" title="微博">微博</a>)，校对：CXH_ME(<a href="http://weibo.com/sdqxcxh">微博</a>), Joshua孟思拓(<a href="http://weibo.com/u/3792314315" title="微博">微博</a>
+
+   </p>
+   <p>本文由翻译小组成员原创发布，个人转载请注明出处和原始链接，商业转载请联系我们~ 感谢您对我们工作的支持~</p>
+
+   </body>
+</html>

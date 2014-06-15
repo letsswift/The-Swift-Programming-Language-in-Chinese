@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <meta content="all" name="robots" />
+     <meta name="author" content="" />
+     <meta name="Copyright" content="" />
+     <meta name="description" content="" />
+     <meta name="keywords"content="" />
+     <link rel="icon" href="" type="image/x-icon" />
+     <link rel="shortcut icon" href="" type="image/x-icon" />
+     <link rel="stylesheet" rev="stylesheet" href="" type="text/css" media="all" />
+     <title>The-Swift-Programming-Language中文教程</title>
+   </head>
+   <body>
+
+   <h1 id="swift中文教程九-类与结构">Swift中文教程（九） 类与结构</h1>
+   <p>类与结构是编程人员在代码中会经常用到的代码块。在类与结构中可以像定义常量，变量和函数一样，定义相关的属性和方法以此来实现各种功能。</p>
+   <p>和其它的编程语言不太相同的是，Swift不需要单独创建接口或者实现文件来使用类或者结构。Swift中的类或者结构可以在单文件中直接定义，一旦定义完成后，就能够被直接其它代码使用。</p>
+   <p>注意：一个类的实例一般被视作一个对象，但是在Swift中，类与结构更像是一个函数方法，在后续的章节中更多地是讲述类和结构的功能性。</p>
+   <h2 id="类和结构的异同">类和结构的异同</h2>
+   <p>类和结构有一些相似的地方，它们都可以：</p>
+   <ul>
+   <li>定义一些可以赋值的属性；</li>
+   <li>定义具有功能性的方法</li>
+   <li>定义下标，使用下标语法</li>
+   <li>定义初始化方法来设置初始状态</li>
+   <li>在原实现方法上的可扩展性</li>
+   <li>根据协议提供某一特定类别的基本功能</li>
+   </ul>
+   <p>更多内容可以阅读：属性，方法，下标，初始化，扩展和协议等章节</p>
+   <p>类还有一些结构不具备的特性：</p>
+   <ul>
+   <li>类的继承性</li>
+   <li>对类实例实时的类型转换</li>
+   <li>析构一个类的实例使之释放空间</li>
+   <li>引用计数，一个类实例可以有多个引用</li>
+   </ul>
+   <p>更多内容可以阅读：继承，类型转换，初始化自动引用计数</p>
+   <blockquote>
+   <p>注意：结构每次在代码中传递时都是复制了一整个，所以不要使用引用计数</p>
+   </blockquote>
+   <h3 id="定义语法">定义语法</h3>
+   <p>类和结构拥有相似的定义语法，使用class关键词定义一个类，struct关键词定义结构。每个定义都由一对大括号包含：</p>
+   <pre><code>class SomeClass {
+       // class definition goes here
+   }
+   struct SomeStructure {
+       // structure definition goes here
+   }</code></pre>
+   <blockquote>
+   <p>注意：在定义类和结构时，一般使用UpperCamelCase命名法来定义类和结构的名称，比如SomeClass和SomeStructure，这样也符合Swift其它类型的标准。而给属性和方法命名时，一般时候lowerCamelCase命名法，比如frameRate和incrementCount等。</p>
+   </blockquote>
+   <p>下面是一个结构和一个类的定义示例：</p>
+   <pre><code>struct Resolution {
+       var width = 0
+       var height = 0
+   }
+   class VideoMode {
+       var resolution = Resolution()
+       var interlaced = falsevar
+       frameRate = 0.0
+       var name: String?
+   }</code></pre>
+   <p>上面的例子首先定义了一个叫Resolution的结构，用来描述一个像素显示的分辨率，它有两个属性分别叫width和height。这两个属性被默认定义为Int类型，初始化为0.</p>
+   <p>之后定义了一个叫VideoMode的类，为视频显示的显示方式。这个类有四个属性，第一个属性resolution本身又是一个结构，然后是另外两个属性。最后一个属性用到了可选字符串类型String?，表示这个属性可以存在，或者不存在为nil。</p>
+   <h3 id="类和结构的实例">类和结构的实例</h3>
+   <p>上面的两个定义仅仅是定义了结构Resolution和类VideoMode的整体样式，它们本身不是一个特定的分辨率或者显示方式，这时候就需要实例化这个结构和类。</p>
+   <p>实例化的语法相似：</p>
+   <pre><code>let someResolution = Resolution()
+   let someVideoMode = VideoMode()</code></pre>
+   <p>类和结构都使用实例语法来完成实例化。最简单的实例语法就是用两个括号()完成。在这种情况下定义的实例中的属性都会完成默认初始化。更多内容可以参考初始化一章。</p>
+   <h3 id="访问属性">访问属性</h3>
+   <p>使用.语法就可以方便地访问一个实例的属性。在.语法中，在实例名之后加上(.)再加上属性名即可，不需要空格：</p>
+   <pre><code>println(&quot;The width of someResolution is \(someResolution.width)&quot;)
+   // prints &quot;The width of someResolution is 0&quot;</code></pre>
+   <p>在这个例子中，someResolution.width表示someResolution的width属性，返回了它的初始值0</p>
+   <p>也可以使用.语法连续地获取属性的属性，比如VideoMode中resolution属性的width属性</p>
+   <pre><code>println(&quot;The width of someVideoMode is \(someVideoMode.resolution.width)&quot;)
+   // prints &quot;The width of someVideoMode is 0&quot;</code></pre>
+   <p>使用这种方法不仅可以访问，也可以赋值：</p>
+   <pre><code>someVideoMode.resolution.width = 1280
+   println(&quot;The width of someVideoMode is now \(someVideoMode.resolution.width)&quot;)
+   // prints &quot;The width of someVideoMode is now 1280&quot;</code></pre>
+   <p>注意：和Objective-C不同，Swift能够直接设置一个结构属性的子属性，就像上面这个例子一样。</p>
+   <h3 id="结构类型的成员初始化方法">结构类型的成员初始化方法</h3>
+   <p>每个结构都有一个成员初始化方法，可以在初始化的时候通过使用属性名称来指定每一个属性的初始值：</p>
+   <pre><code>let vga = Resolution(width: 640, height: 480)</code></pre>
+   <p>但是和结构不同，类实例不能够使用成员初始化方法，在初始化一章有专门的介绍。</p>
+   <h2 id="结构和枚举类型是数值类型">结构和枚举类型是数值类型</h2>
+   <p>数值类型是说当它被赋值给一个常量或者变量，或者作为参数传递给函数时，是完整地复制了一个新的数值，而不是仅仅改变了引用对象。</p>
+   <p>事实上读到这里你已经在前面几章见过数值类型了，所有Swift中的基础类型-整型，浮点型，布尔类型，字符串，数组和字典都是数值类型。它们也都是由结构来实现的。</p>
+   <p>在Swift中所有的结构和枚举类型都是数值类型。这意味这你实例化的每个结构和枚举，其包含的所有属性，都会在代码中传递的时候被完整复制。</p>
+   <p>下面的这个例子可以说明这个特性：</p>
+   <pre><code>let hd = Resolution(width: 1920, height: 1080)
+   var cinema = hd</code></pre>
+   <p>声明了一个常量hd，是Resolution的实例化，宽度是1920，高度是1080，然后声明了一个变量cinema，和hd相同。这个时候表明，cinema和hd是两个实例，虽然他们的宽度都是1920，高度都是1080。</p>
+   <p>如果把cinema的宽度更改为2048，hd的宽度不会变化，依然是1920</p>
+   <pre><code>cinema.width = 2048
+   println(&quot;cinema is now \(cinema.width) pixels wide&quot;)
+   // prints &quot;cinema is now 2048 pixels wide&quot;
+   println(&quot;hd is still \(hd.width) pixels wide&quot;)
+   // prints &quot;hd is still 1920 pixels wide&quot;</code></pre>
+   <p>这表明当hd被赋值给cinema时，是完整地复制了一个全新的Resolution结构给cinema，所以当cinema的属性被修改时，hd的属性不会变化。</p>
+   <p>下面的例子演示的是枚举类型：</p>
+   <pre><code>enum CompassPoint {
+       case North, South, East, West
+   }
+   var currentDirection = CompassPoint.West
+   let rememberedDirection = currentDirection
+   currentDirection = .East
+   if rememberedDirection == .West {
+       println(&quot;The remembered direction is still .West&quot;)
+   }
+   // prints &quot;The remembered direction is still .West&quot;</code></pre>
+   <p>尽管经过几次赋值，rememberedDirection依然没有变化，这是因为在每一次赋值过程中，都是将数值类型完整地复制了过来。</p>
+   <h2 id="类是引用类型">类是引用类型</h2>
+   <p>和数值类型不同引用类型不会复制整个实例，当它被赋值给另外一个常量或者变量的时候，而是会建立一个和已有的实例相关的引用来表示它。</p>
+   <p>下面是引用的示例，VideoMode被定义为一个类：</p>
+   <pre><code>let tenEighty = VideoMode()
+   tenEighty.resolution = hd
+   tenEighty.interlaced = true
+   tenEighty.name = &quot;1080i&quot;
+   tenEighty.frameRate = 25.0</code></pre>
+   <p>分别将这个实例tenEighty的四个属性初始化，然后tenEighty被赋值给了另外一个叫alsoTenEighty的常量，然后alsoTenEighty的frameRate被修改了</p>
+   <pre><code>let alsoTenEighty = tenEighty
+   alsoTenEighty.frameRate = 30.0</code></pre>
+   <p>由于类是一个引用类型，所以tenEighty和alsoTenEighty实际上是同一个实例，仅仅只是使用了不同的名称而已，我们通过检查frameRate可以证明这个问题：</p>
+   <pre><code>println(&quot;The frameRate property of tenEighty is now \(tenEighty.frameRate)&quot;)
+   // prints &quot;The frameRate property of tenEighty is now 30.0&quot;</code></pre>
+   <p>注意到tenEighty和alsoTenEighty是被定义为常量的，而不是变量。但是我们还是可以改变他们的属性值，这是因为它们本身实际上没有改变，它们并没有保存这个VideoMode的实例，仅仅只是引用了一个VideoMode实例，而我们修改的也是它们引用的实例中的属性。</p>
+   <h3 id="特征操作">特征操作</h3>
+   <p>因为类是引用类型，那么就可能存在多个常量或者变量只想同一个类的实例（这对于数值类型的结构和枚举是不成立的）。</p>
+   <p>可以通过如下两个操作来判断两个常量或者变量是否引用的是同一个类的实例：</p>
+   <ul>
+   <li><p>相同的实例(===)</p></li>
+   <li><p>不同的实例(!==)</p></li>
+   </ul>
+   <p>使用这些操作可以检查：</p>
+   <p>if tenEighty === alsoTenEighty { println(&quot;tenEighty and alsoTenEighty refer to the same Resolution instance.&quot;) } // prints &quot;tenEighty and alsoTenEighty refer to the same Resolution instance.&quot;</p>
+   <p>注意是相同的实例判断使用三个连续的等号，这和相等（两个等号）是不同的</p>
+   <p>实例相同表示的是两个变量或者常量所引用的是同一个类的实例</p>
+   <p>相等是指两个实例在数值上的相等，或者相同。</p>
+   <p>当你定义一个类的时候，就需要说明什么样的时候是两个类相等，什么时候是两个类不相等。更多内容可以从相等操作一章中获得。</p>
+   <h3 id="指针">指针</h3>
+   <p>如果你有C，C++或者Objective-C的编程经验，你一定知道在这些语言中使用指针来引用一个内存地址。Swift中引用一个实例的常量或变量跟C中的指针类似，但是不是一个直接指向内存地址的指针，也不需要使用*记号表示你正在定义一个引用。Swift中引用和其它变量，常量的定义方法相同。</p>
+   <h3 id="如何选择使用类还是结构">如何选择使用类还是结构</h3>
+   <p>在代码中可以选择类或者结构来实现你所需要的代码块，完成相应的功能。但是结构实例传递的是值，而类实例传递的是引用。那么对于不同的任务，应该考虑到数据结构和功能的需求不同，从而选择不同的实例。</p>
+   <p>一般来说，下面的一个或多个条件满足时，应当选择创建一个结构：</p>
+   <ul>
+   <li>结构主要是用来封装一些简单的数据值</li>
+   <li>当赋值或者传递的时候更希望这些封装的数据被赋值，而不是被引用过去</li>
+   <li>所有被结构存储的属性本身也是数值类型</li>
+   <li>结构不需要被另外一个类型继承或者完成其它行为</li>
+   </ul>
+   <p>一些比较好的使用结构的例子：</p>
+   <ul>
+   <li>一个几何形状的尺寸，可能包括宽度，高度或者其它属性，每个属性都是Double类型的</li>
+   <li>一个序列的对应关系，可能包括开始start和长度length属性，每个属性都是Int类型的</li>
+   <li>3D坐标系中的一个点，包括x，y和z坐标，都是Double类型</li>
+   </ul>
+   <p>在其它情况下，类会是更好的选择。也就是说一般情况下，自定义的一些数据结构一般都会被定义为类。</p>
+   <h2 id="集合类型的赋值和复制操作">集合类型的赋值和复制操作</h2>
+   <p>Swift中，数组Array和字典Dictionary是用结构来实现的，但是数组与字典和其它结构在进行赋值或者作为参数传递给函数的时候有一些不同。</p>
+   <p>并且数组和字典的这些操作，又与Foundation中的NSArray和NSDictionary不同，它们是用类来实现的。</p>
+   <blockquote>
+   <p>注意：下面的小节将会介绍数组，字典，字符串等的复制操作。这些复制操作看起来都已经发生，但是Swift只会在确实需要复制的时候才会完整复制，从而达到最优的性能。</p>
+   </blockquote>
+   <h3 id="字典的赋值和复制操作">字典的赋值和复制操作</h3>
+   <p>每次将一个字典Dictionary类型赋值给一个常量或者变量，或者作为参数传递给函数时，字典会在赋值或者函数调用时才会被复制。这个过程在上面的小节：结构和枚举是数值类型中描述了。</p>
+   <p>如果字典中的键值是数值类型（结构或者枚举），它们在赋值的时候会同时被复制。相反，如果是引用类型（类或者函数），引用本身将会被复制，而不是类实例或者函数本身。字典的这种复制方式和结构相同。</p>
+   <p>下面的例子演示的是一个叫ages的字典，存储了一些人名和年龄的对应关系，当赋值给copiedAges的时候，里面的数值同时被完整复制。当改变复制了的数值的时候，原有的数值不会变化，如下例子：</p>
+   <pre><code>var ages = [&quot;Peter&quot;: 23, &quot;Wei&quot;: 35, &quot;Anish&quot;: 65, &quot;Katya&quot;: 19]
+   var copiedAges = ages</code></pre>
+   <p>这个字典的键是字符串String类型，值是Int类型，都是数值类型，那么在赋值的时候都会被完整复制。</p>
+   <pre><code>copiedAges[&quot;Peter&quot;] = 24
+   println(ages[&quot;Peter&quot;])
+   // prints &quot;23&quot;</code></pre>
+   <h3 id="数组的赋值和复制操作">数组的赋值和复制操作</h3>
+   <p>和字典Dictionary类型比起来，数组Array的赋值和复制操作就更加复杂。Array类型和C语言中的类似，仅仅只会在需要的时候才会完整复制数组的值。</p>
+   <p>如果将一个数组赋值给一个常量或者变量，或者作为一个参数传递给函数，复制在赋值和函数调用的时候并不会发生。这两个数组将会共享一个元素序列，如果你修改了其中一个，另外一个也将会改变。</p>
+   <p>对于数组来说，复制只会在你进行了一个可能会修改数组长度操作时才会发生。包括拼接，添加或者移除元素等等。当复制实际发生的时候，才会像字典的赋值和复制操作一样。</p>
+   <p>下面的例子演示了数组的赋值操作：</p>
+   <pre><code>var a = [1, 2, 3]
+   var b = a
+   var c = a</code></pre>
+   <p>数组a被赋值给了b和c，然后输出相同的下标会发现：</p>
+   <pre><code>println(a[0])
+   // 1
+   println(b[0])
+   // 1
+   println(c[0])
+   // 1</code></pre>
+   <p>如果改变a中的某个值，会发现b和c中的数值也会跟着改变，因为赋值操作没有改变数组的长度：</p>
+   <pre><code>a[0] = 42
+   println(a[0])
+   // 42
+   println(b[0])
+   // 42
+   println(c[0])
+   // 42</code></pre>
+   <p>但是，如果在a中添加一个新的元素，那么就改变了数组的长度，这个时候就会发生实际的复制操作。如果再改变a中元素的值，b和c中的元素将不会发生改变：</p>
+   <pre><code>a.append(4)
+   a[0] = 777
+   println(a[0])
+   // 777
+   println(b[0])
+   // 42
+   println(c[0])
+   // 42</code></pre>
+   <h3 id="设置数组是唯一的">设置数组是唯一的</h3>
+   <p>如果可以在对数组进行修改前，将它设置为唯一的就最好了。我们可以通过使用unshare方法来将数组自行拷贝出来，成为一个唯一的实体。</p>
+   <p>如果多个变量引用了同一个数组，可以使用unshare方法来完成一次“独立”</p>
+   <pre><code>b.unshare()</code></pre>
+   <p>这时候如果再修改b的值，c的值也不会再受影响</p>
+   <pre><code>b[0] = -105
+   println(a[0])
+   // 777
+   println(b[0])
+   // -105
+   println(c[0])
+   // 42</code></pre>
+   <p>检查两个数组时候共用了相同的元素</p>
+   <p>使用实例相等操作符来判断两个数组是否共用了元素（===和!===）</p>
+   <p>下面这个例子演示的就是判断是否共用元素：</p>
+   <pre><code>if b === c {
+       println(&quot;b and c still share the same array elements.&quot;)
+   } else {
+       println(&quot;b and c now refer to two independent sets of array elements.&quot;)
+   }
+   // prints &quot;b and c now refer to two independent sets of array elements.&quot;</code></pre>
+   <p>也可以使用这个操作来判断两个子数组是否有共用的元素：</p>
+   <pre><code>if b[0...1] === b[0...1] {
+       println(&quot;These two subarrays share the same elements.&quot;)
+   } else {
+       println(&quot;These two subarrays do not share the same elements.&quot;)
+   }
+   // prints &quot;These two subarrays share the same elements.&quot;</code></pre>
+   <h3 id="强制数组拷贝">强制数组拷贝</h3>
+   <p>通过调用数组的copy方法来完成强制拷贝。这个方法将会完整复制一个数组到新的数组中。</p>
+   <p>下面的例子中这个叫names的数组会被完整拷贝到copiedNames中去。</p>
+   <pre><code>var names = [&quot;Mohsen&quot;, &quot;Hilary&quot;, &quot;Justyn&quot;, &quot;Amy&quot;, &quot;Rich&quot;, &quot;Graham&quot;, &quot;Vic&quot;]
+   var copiedNames = names.copy()</code></pre>
+   <p>通过改变copiedNames的值可以验证，数组已经被完整拷贝，不会影响到之前的数组：</p>
+   <pre><code>copiedNames[0] = &quot;Mo&quot;
+   println(names[0])
+   // prints &quot;Mohsen&quot;</code></pre>
+   <blockquote>
+   <p>注意：如果你不确定你需要的数组是否是独立的，那么仅仅使用unshare就可以了。而copy方法不管当前是不是独立的，都会完整拷贝一次，哪怕这个数组已经是unshare的了。</p>
+   </blockquote>
+   <hr/>
+
+   <p>感谢翻译小组成员：李起攀(<a href="http://weibo.com/liqipan" title="李起攀">微博</a>)、若晨(<a href="http://weibo.com/u/2508964602," title="若晨">微博</a>)、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾(<a href="http://weibo.com/guyiguy" title="微博">微博</a>)，校对：CXH_ME(<a href="http://weibo.com/sdqxcxh">微博</a>), Joshua孟思拓(<a href="http://weibo.com/u/3792314315" title="微博">微博</a>
+
+   </p>
+   <p>本文由翻译小组成员原创发布，个人转载请注明出处和原始链接，商业转载请联系我们~ 感谢您对我们工作的支持~</p>
+
+   </body>
+</html>

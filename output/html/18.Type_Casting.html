@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <meta content="all" name="robots" />
+     <meta name="author" content="" />
+     <meta name="Copyright" content="" />
+     <meta name="description" content="" />
+     <meta name="keywords"content="" />
+     <link rel="icon" href="" type="image/x-icon" />
+     <link rel="shortcut icon" href="" type="image/x-icon" />
+     <link rel="stylesheet" rev="stylesheet" href="" type="text/css" media="all" />
+     <title>The-Swift-Programming-Language中文教程</title>
+   </head>
+   <body>
+
+   <h1 id="swift中文教程十八-类型检查">Swift中文教程（十八） 类型检查</h1>
+   <p>类型检查是一种检查类实例的方式，并且或者也是让实例作为它的父类或者子类的一种方式。</p>
+   <p>类型检查在 Swift 中使用is 和 as操作符实现。这两个操作符提供了一种简单达意的方式去检查值的类型或者转换它的类型。</p>
+   <p>你也可以用来检查一个类是否实现了某个协议，就像在 Protocols Checking for Protocol Conformance部分讲述的一样。</p>
+   <h2 id="定义一个类层次作为例子">定义一个类层次作为例子</h2>
+   <p>你可以将它用在类和子类的层次结构上，检查特定类实例的类型并且转换这个类实例的类型成为这个层次结构中的其他类型。这下面的三个代码段定义了一个类层次和一个包含了几个这些类实例的数组，作为类型检查的例子。</p>
+   <p>第一个代码片段定义了一个新的基础类MediaItem。这个类为任何出现在数字媒体库的媒体项提供基础功能。特别的，它声明了一个 String 类型的 name 属性，和一个init name初始化器。（它假定所有的媒体项都有个名称。）</p>
+   <pre><code>class MediaItem {
+       var name: String
+       init(name: String) {
+           self.name = name
+       }
+   }</code></pre>
+   <p>下一个代码段定义了 MediaItem 的两个子类。第一个子类Movie，在父类（或者说基类）的基础上增加了一个director（导演） 属性，和相应的初始化器。第二个类在父类的基础上增加了一个 artist（艺术家） 属性，和相应的初始化器：</p>
+   <pre><code>class Song: MediaItem {
+       var artist: String
+       init(name: String, artist: String) {
+           self.artist = artist
+           super.init(name: name)
+       }
+   }</code></pre>
+   <p>最后一个代码段创建了一个数组常量 library ，包含两个Movie实例和三个Song实例。library的类型是在它被初始化时根据它数组中所包含的内容推断来的。Swift 的类型检测器能够演绎出Movie 和 Song 有共同的父类 MediaItem，所以它推断出 MediaItem[] 类作为 library 的类型。</p>
+   <pre><code>let library = [
+       Movie(name: &quot;Casablanca&quot;, director: &quot;Michael Curtiz&quot;),
+       Song(name: &quot;Blue Suede Shoes&quot;, artist: &quot;Elvis Presley&quot;),
+       Movie(name: &quot;Citizen Kane&quot;, director: &quot;Orson Welles&quot;),
+       Song(name: &quot;The One And Only&quot;, artist: &quot;Chesney Hawkes&quot;),
+       Song(name: &quot;Never Gonna Give You Up&quot;, artist: &quot;Rick Astley&quot;)
+   ]
+   // the type of &quot;library&quot; is inferred to be MediaItem[]</code></pre>
+   <p>在幕后library 里存储的媒体项依然是 Movie 和 Song 类型的，但是，若你迭代它，取出的实例会是 MediaItem 类型的，而不是 Movie 和 Song 类型的。为了让它们作为它们本来的类型工作，你需要检查它们的类型或者向下转换它们的类型到其它类型，就像下面描述的一样。</p>
+   <h2 id="检查类型">检查类型</h2>
+   <p>用类型检查操作符(is)来检查一个实例是否属于特定子类型。类型检查操作符返回 true 若实例属于那个子类型，若不属于返回 false 。</p>
+   <p>下面的例子定义了两个变量，movieCount 和 songCount，用来计算数组library 中 Movie 和 Song 类型的实例数量。</p>
+   <pre><code>var movieCount = 0
+   var songCount = 0
+   
+   for item in library {
+       if item is Movie {
+           ++movieCount
+       } else if item is Song {
+           ++songCount
+       }
+   }
+   
+   println(&quot;Media library contains \(movieCount) movies and \(songCount) songs&quot;)
+   // prints &quot;Media library contains 2 movies and 3 songs&quot;</code></pre>
+   <p>示例迭代了数组 library 中的所有项。每一次， for-in 循环设置 item 为数组中的下一个 MediaItem。</p>
+   <p>若当前 MediaItem 是一个 Movie 类型的实例， item is Movie 返回 true，相反返回 false。同样的，item is Song检查item是否为Song类型的实例。在循环结束后，movieCount 和 songCount的值就是被找到属于各自的类型的实例数量。</p>
+   <h2 id="向下转型downcasting">向下转型（Downcasting）</h2>
+   <p>某类型的一个常量或变量可能在幕后实际上属于一个子类。你可以相信，上面就是这种情况。你可以尝试向下转到它的子类型，用类型检查操作符(as)</p>
+   <p>因为向下转型可能会失败，类型检查操作符带有两种不同形式。可选形式（ optional form） as? 返回一个你试图下转成的类型的可选值（optional value）。强制形式 as 把试图向下转型和强制解包（force-unwraps）结果作为一个混合动作。</p>
+   <p>当你不确定下转可以成功时，用类型检查的可选形式(as?)。可选形式的类型检查总是返回一个可选值（optional value），并且若下转是不可能的，可选值将是 nil 。这使你能够检查下转是否成功。</p>
+   <p>只有你可以确定下转一定会成功时，才使用强制形式。当你试图下转为一个不正确的类型时，强制形式的类型检查会触发一个运行时错误。</p>
+   <p>下面的例子，迭代了library里的每一个 MediaItem ，并打印出适当的描述。要这样做，item需要真正作为Movie或 Song的类型来使用。不仅仅是作为 MediaItem。为了能够使用Movie 或 Song的 director 或 artist属性，这是必要的。</p>
+   <p>在这个示例中，数组中的每一个item可能是 Movie 或 Song。 事前你不知道每个item的真实类型，所以这里使用可选形式的类型检查 （as?）去检查循环里的每次下转。</p>
+   <pre><code>for item in library {
+       if let movie = item as? Movie {
+           println(&quot;Movie: &#39;\(movie.name)&#39;, dir. \(movie.director)&quot;)
+       } else if let song = item as? Song {
+           println(&quot;Song: &#39;\(song.name)&#39;, by \(song.artist)&quot;)
+       }
+   }
+   
+   // Movie: &#39;Casablanca&#39;, dir. Michael Curtiz
+   // Song: &#39;Blue Suede Shoes&#39;, by Elvis Presley
+   // Movie: &#39;Citizen Kane&#39;, dir. Orson Welles
+   // Song: &#39;The One And Only&#39;, by Chesney Hawkes
+   // Song: &#39;Never Gonna Give You Up&#39;, by Rick Astley</code></pre>
+   <p>示例首先试图将 item 下转为 Movie。因为 item 是一个 MediaItem 类型的实例，它可能是一个Movie；同样，它可能是一个 Song，或者仅仅是基类 MediaItem。因为不确定，as?形式在试图下转时将返还一个可选值。item as Movie 的返回值是Movie?类型或 “optional Movie”。</p>
+   <p>当下转为 Movie 应用在两个 Song 实例时将会失败。为了处理这种情况，上面的例子使用了可选绑定（optional binding）来检查可选 Movie真的包含一个值（这个是为了判断下转是否成功。）可选绑定是这样写的“if let movie = item as? Movie”，可以这样解读：</p>
+   <p>“尝试将 item 转为 Movie类型。若成功，设置一个新的临时常量 movie 来存储返回的可选Movie”</p>
+   <p>若下转成功，然后movie的属性将用于打印一个Movie实例的描述，包括它的导演的名字director。当Song被找到时，一个相近的原理被用来检测 Song 实例和打印它的描述。</p>
+   <blockquote>
+   <p>注意： 转换没有真的改变实例或它的值。潜在的根本的实例保持不变；只是简单地把它作为它被转换成的类来使用。</p>
+   </blockquote>
+   <h3 id="any和anyobject的类型检查">Any和AnyObject的类型检查</h3>
+   <p>Swift为不确定类型提供了两种特殊类型别名：</p>
+   <ul>
+   <li>AnyObject可以代表任何class类型的实例。</li>
+   <li>Any可以表示任何类型，除了方法类型（function types）。</li>
+   </ul>
+   <blockquote>
+   <p>注意： 只有当你明确的需要它的行为和功能时才使用Any和AnyObject。在你的代码里使用你期望的明确的类型总是更好的。</p>
+   </blockquote>
+   <h3 id="anyobject类型">AnyObject类型</h3>
+   <p>当需要在工作中使用 Cocoa APIs，它一般接收一个AnyObject[]类型的数组，或者说“一个任何对象类型的数组”。这是因为 Objective-C 没有明确的类型化数组。但是，你常常可以确定包含在仅从你知道的 API 信息提供的这样一个数组中的对象的类型。</p>
+   <p>在这些情况下，你可以使用强制形式的类型检查(as)来下转在数组中的每一项到比 AnyObject 更明确的类型，不需要可选解析（optional unwrapping）。</p>
+   <p>下面的示例定义了一个 AnyObject[] 类型的数组并填入三个Movie类型的实例：</p>
+   <pre><code>let someObjects: AnyObject[] = [
+       Movie(name: &quot;2001: A Space Odyssey&quot;, director: &quot;Stanley Kubrick&quot;),
+       Movie(name: &quot;Moon&quot;, director: &quot;Duncan Jones&quot;),
+       Movie(name: &quot;Alien&quot;, director: &quot;Ridley Scott&quot;)
+   ]</code></pre>
+   <p>因为知道这个数组只包含 Movie 实例，你可以直接用(as)下转并解包到不可选的Movie类型（ps：其实就是我们常用的正常类型，这里是为了和可选类型相对比）。</p>
+   <pre><code>for object in someObjects {
+       let movie = object as Movie
+       println(&quot;Movie: &#39;\(movie.name)&#39;, dir. \(movie.director)&quot;)
+   }
+   // Movie: &#39;2001: A Space Odyssey&#39;, dir. Stanley Kubrick
+   // Movie: &#39;Moon&#39;, dir. Duncan Jones
+   // Movie: &#39;Alien&#39;, dir. Ridley Scott</code></pre>
+   <p>为了变为一个更短的形式，下转someObjects数组为Movie[]类型来代替下转每一项方式。</p>
+   <pre><code>for movie in someObjects as Movie[] {
+       println(&quot;Movie: &#39;\(movie.name)&#39;, dir. \(movie.director)&quot;)
+   }
+   // Movie: &#39;2001: A Space Odyssey&#39;, dir. Stanley Kubrick
+   // Movie: &#39;Moon&#39;, dir. Duncan Jones
+   // Movie: &#39;Alien&#39;, dir. Ridley Scott</code></pre>
+   <h2 id="any类型">Any类型</h2>
+   <p>这里有个示例，使用 Any 类型来和混合的不同类型一起工作，包括非class类型。它创建了一个可以存储Any类型的数组 things。</p>
+   <pre><code>var things = Any[]()
+   
+   things.append(0)
+   things.append(0.0)
+   things.append(42)
+   things.append(3.14159)
+   things.append(&quot;hello&quot;)
+   things.append((3.0, 5.0))
+   things.append(Movie(name: &quot;Ghostbusters&quot;, director: &quot;Ivan Reitman&quot;))</code></pre>
+   <p>things 数组包含两个 Int 值，2个 Double 值，1个 String 值，一个元组 (Double, Double) ，Ivan Reitman 导演的电影“Ghostbusters”。</p>
+   <p>你可以在 switch cases里用is 和 as 操作符来发觉只知道是 Any 或 AnyObject的常量或变量的类型。 下面的示例迭代 things数组中的每一项的并用switch语句查找每一项的类型。这几种switch语句的情形绑定它们匹配的值到一个规定类型的常量，让它们可以打印它们的值：</p>
+   <pre><code>for thing in things {
+       switch thing {
+       case 0 as Int:
+           println(&quot;zero as an Int&quot;)
+       case 0 as Double:
+           println(&quot;zero as a Double&quot;)
+       case let someInt as Int:
+           println(&quot;an integer value of \(someInt)&quot;)
+       case let someDouble as Double where someDouble &gt; 0:
+           println(&quot;a positive double value of \(someDouble)&quot;)
+       case is Double:
+           println(&quot;some other double value that I don&#39;t want to print&quot;)
+       case let someString as String:
+           println(&quot;a string value of \&quot;\(someString)\&quot;&quot;)
+       case let (x, y) as (Double, Double):
+           println(&quot;an (x, y) point at \(x), \(y)&quot;)
+       case let movie as Movie:
+           println(&quot;a movie called &#39;\(movie.name)&#39;, dir. \(movie.director)&quot;)
+       default:
+           println(&quot;something else&quot;)
+       }
+   }
+   
+   // zero as an Int
+   // zero as a Double
+   // an integer value of 42
+   // a positive double value of 3.14159
+   // a string value of &quot;hello&quot;
+   // an (x, y) point at 3.0, 5.0
+   // a movie called &#39;Ghostbusters&#39;, dir. Ivan Reitman
+   。</code></pre>
+   <blockquote>
+   <p>注意： 在一个switch语句的case中使用强制形式的类型检查操作符（as, 而不是 as?）来检查和转换到一个明确的类型。在 switch case 语句的内容中这种检查总是安全的。</p>
+   </blockquote>
+   <p>本文部分原文来自于http://www.swiftguide.cn/翻译小组的译文，共同校对中。</p>
+   <hr/>
+
+   <p>感谢翻译小组成员：李起攀(<a href="http://weibo.com/liqipan" title="李起攀">微博</a>)、若晨(<a href="http://weibo.com/u/2508964602," title="若晨">微博</a>)、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾(<a href="http://weibo.com/guyiguy" title="微博">微博</a>)，校对：CXH_ME(<a href="http://weibo.com/sdqxcxh">微博</a>), Joshua孟思拓(<a href="http://weibo.com/u/3792314315" title="微博">微博</a>
+
+   </p>
+   <p>本文由翻译小组成员原创发布，个人转载请注明出处和原始链接，商业转载请联系我们~ 感谢您对我们工作的支持~</p>
+
+   </body>
+</html>

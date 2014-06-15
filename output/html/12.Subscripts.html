@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <meta content="all" name="robots" />
+     <meta name="author" content="" />
+     <meta name="Copyright" content="" />
+     <meta name="description" content="" />
+     <meta name="keywords"content="" />
+     <link rel="icon" href="" type="image/x-icon" />
+     <link rel="shortcut icon" href="" type="image/x-icon" />
+     <link rel="stylesheet" rev="stylesheet" href="" type="text/css" media="all" />
+     <title>The-Swift-Programming-Language中文教程</title>
+   </head>
+   <body>
+
+   <h1 id="swift中文教程十二-下标">Swift中文教程（十二） 下标</h1>
+   <p>类，结构和枚举类型都可以通过定义下标来访问一组或者一个序列中的成员元素。通过下标索引就可以方便地检索和设置相应的值，而不需要其他的额外操作。比如你可以通过someArray[index]来访问数组中的元素，或者someDictionary[key]来对字典进行索引。</p>
+   <p>你可以为一个类型定义多个下标，以及适当的下标重载用来根据传递给下标的索引来设置相应的值。下标不仅可以定义为一维的，还可以根据需要定义为多维的，多个参数的。</p>
+   <h2 id="下标语法">下标语法</h2>
+   <p>下标可以让你通过实例名后加中括号内一个或多个数值的形式检索一个元素。语法和方法语法和属性语法类似，通过使用subscript关键定义，一个或多个输入参数以及一个返回值。不同于实例方法的是，下标可以是可读写的或者只读的。这种行为通过一个getter和setter语句联通，就像是计算属性一样。</p>
+   <pre><code>subscript(index: Int) -&gt; Int {
+       get {
+           // return an appropriate subscript value here
+       }
+       set(newValue) {
+           // perform a suitable setting action here
+       }
+   }</code></pre>
+   <p>newValue的类型和下标返回的类型一样。和计算属性一样，你可以选择不指定setter的参数，因为当你不指定的时候，默认参数newValue会被提供给setter。</p>
+   <p>和计算属性一样，只读下标可以不需要get关键词：</p>
+   <pre><code>subscript(index: Int) -&gt; Int {
+       // return an appropriate subscript value here
+   }</code></pre>
+   <p>下面是一个只读下标的实现，定义了一个TimesTable结构来表示一个整数的倍数表：</p>
+   <pre><code>struct TimesTable {
+       let multiplier: Int
+       subscript(index: Int) -&gt; Int {
+           return multiplier * index
+       }
+   }
+   let threeTimesTable = TimesTable(multiplier: 3)
+   println(&quot;six times three is \(threeTimesTable[6])&quot;)
+   // prints &quot;six times three is 18&quot;</code></pre>
+   <p>在这个例子中，实例TimesTable被创建为3倍数表，这是通过在初始化的时候为multiplier参数传入的数值3设置的。</p>
+   <blockquote>
+   <p>注意：</p>
+   </blockquote>
+   <p>倍数表是根据特定的数学规则设置的，所以不应该为threeTimeTable[someIndex]元素设置一个新值，所以TimesTable的下标定义为只读。</p>
+   <h2 id="下标的使用">下标的使用</h2>
+   <p>下标的具体含义由使用它时的上下文来确定。下标主要用来作为集合，列表和序列的元素快捷方式。你可以自由的为你的类或者结构定义你所需要的下标。</p>
+   <p>比如说，Swift中字典类型实现的下标是设置和检索字典实例中的值。可以通过分别给出下标中的关键词和值来设置多个值，也可以通过下标来设置单个字典的值：</p>
+   <pre><code>var numberOfLegs = [&quot;spider&quot;: 8, &quot;ant&quot;: 6, &quot;cat&quot;: 4]
+   numberOfLegs[&quot;bird&quot;] = 2</code></pre>
+   <p>上面的例子中定义了一个变量numberOfLegs，然后通过键值对初始化。numberOfLegs的类型是字典类型Dictionary<String, Int>。在字典创建之后，例子使用了下标赋值方法添加了一个类型为字符串的键”bird”和Int值2到字典中。</p>
+   <p>更多关于字典的下标可以参考：访问和修改字典这一章节</p>
+   <blockquote>
+   <p>注意：</p>
+   </blockquote>
+   <p>Swift中字典类型实现的键值对下标是可选类型。对于numberOfLges字典来说，返回的值是Int?，也就是可选Int值。字典的这种使用可选类型下标的方式说明不是所有的键都有对应的值。同样也可以通过给键赋值nil来删除这个键。</p>
+   <h2 id="下标选项">下标选项</h2>
+   <p>下标可以接收任意数量的参数，参数的类型也可以各异。下标还可以返回任何类型的值。下标可以使用变量参数或者可变参数，但是不能够使用输入输出参数或者提供默认参数的值。</p>
+   <p>类或者结构可以根据需要实现各种下标方式，可以在需要的时候使用合适的下标通过中括号中的参数返回需要的值。这种多下标的定义被称作下标重载。</p>
+   <p>当然，最常见的下标用法是单个参数，也可以定义多个参数的下标。下面的例子演示了一个矩阵Matrix结构，它含有二维的Double值。矩阵结构的下标包括两个整形参数：</p>
+   <pre><code>struct Matrix {
+       let rows: Int, columns: Int
+       var grid: Double[]
+       init(rows: Int, columns: Int) {
+           self.rows = rows
+           self.columns = columns
+           grid = Array(count: rows * columns, repeatedValue: 0.0)
+       }
+       func indexIsValidForRow(row: Int, column: Int) -&gt; Bool {
+           return row &gt;= 0 &amp;&amp; row &lt; rows &amp;&amp; column &gt;= 0 &amp;&amp; column &lt; columns
+       }
+       subscript(row: Int, column: Int) -&gt; Double {
+           get {
+               assert(indexIsValidForRow(row, column: column), &quot;Index out of range&quot;)
+               return grid[(row * columns) + column]
+           }
+           set {
+               assert(indexIsValidForRow(row, column: column), &quot;Index out of range&quot;)
+               grid[(row * columns) + column] = newValue
+           }
+       }
+   }</code></pre>
+   <p>矩阵Matrix提供了一个初始化方法，使用两个参数rows和columns，然后建立了一个数组来存储类型为Double的值rows*columns。每个矩阵中的位置都被设置了一个初始值0.0。通过传递初始值0.0和数组长度给数组初始化方法完成上述操作。数组的初始化方法在：创建和初始化数组中有更详细的叙述。</p>
+   <p>你可以传递两个参数row和column来完成Matrix的初始化：</p>
+   <pre><code>var matrix = Matrix(rows: 2, columns: 2)</code></pre>
+   <p>上面的初始化操作创建了一个两行两列的矩阵Matrix实例。这个矩阵实例的grid数组看起来是平坦的，但是实际上是矩阵从左上到右下的一维存储形式。</p>
+   <pre><code>![](pic/subscriptMatrix01_2x.png &quot;subscriptMatrix01_2x&quot;)</code></pre>
+   <p>矩阵中的值可以通过使用包含row和column以及逗号的下标来设置：</p>
+   <pre><code>matrix[0, 1] = 1.5
+   matrix[1, 0] = 3.2</code></pre>
+   <p>这两个语句调用了下标的setter方法为右上和左下角的两个元素分别赋值1.5和3.2</p>
+   <div class="figure">
+   <img src="pic/subscriptMatrix02_2x.png" title="subscriptMatrix02_2x" />
+   </div>
+   <p>矩阵下标的getter和setter方法都包括了一个断言语句来检查下标row和column是否有效。通过indexIsValid方法来判断row和column是否在矩阵的范围内：</p>
+   <pre><code>func indexIsValidForRow(row: Int, column: Int) -&gt; Bool {
+       return row &gt;= 0 &amp;&amp; row &lt; rows &amp;&amp; column &gt;= 0 &amp;&amp; column &lt; columns
+   }</code></pre>
+   <p>如果访问的矩阵越界的时候，断言就会被触发：</p>
+   <pre><code>let someValue = matrix[2, 2]
+   // this triggers an assert, because [2, 2] is outside of the matrix bounds</code></pre>
+   <hr/>
+
+   <p>感谢翻译小组成员：李起攀(<a href="http://weibo.com/liqipan" title="李起攀">微博</a>)、若晨(<a href="http://weibo.com/u/2508964602," title="若晨">微博</a>)、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾(<a href="http://weibo.com/guyiguy" title="微博">微博</a>)，校对：CXH_ME(<a href="http://weibo.com/sdqxcxh">微博</a>), Joshua孟思拓(<a href="http://weibo.com/u/3792314315" title="微博">微博</a>
+
+   </p>
+   <p>本文由翻译小组成员原创发布，个人转载请注明出处和原始链接，商业转载请联系我们~ 感谢您对我们工作的支持~</p>
+
+   </body>
+</html>
