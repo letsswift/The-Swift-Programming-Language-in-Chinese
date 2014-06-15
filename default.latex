@@ -176,11 +176,20 @@ $endif$
 \setcounter{page}{1}%开始编码
 $body$
 
+%footer
+
+
+
+
+
+感谢翻译小组成员：李起攀(\href{http://weibo.com/liqipan}{微博})、若晨(\href{http://weibo.com/u/2508964602}{微博})、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾(\href{http://weibo.com/guyiguy}{微博})，校对：CXH\_ME(\href{http://weibo.com/sdqxcxh}{微博}),Joshua孟思拓(\href{http://weibo.com/u/3792314315}{微博})
+
+本文由翻译小组成员原创发布，个人转载请注明出处和原始链接，商业转载请联系我们~ 感谢您对我们工作的支持~
 %%%%%%%%%% 参考文献 %%%%%%%%%%
-\newpage
-\begin{thebibliography}{}
-\end{thebibliography}
-\clearpage
+%\newpage
+%\begin{thebibliography}{}
+%\end{thebibliography}
+%\clearpage
 %%%%%%%%%% 结束 %%%%%%%%%%
 \end{document}
 
