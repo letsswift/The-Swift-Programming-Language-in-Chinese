@@ -22,5 +22,8 @@ if __name__ == '__main__':
     print cmd
 
     if out_type == 'html':
-        shutil.rmtree('output/html/pic')
+        try:
+            shutil.rmtree('output/html/pic')
+        except Exception , e:
+            pass
         shutil.copytree("pic",'output/html/pic')
