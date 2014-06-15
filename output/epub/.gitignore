@@ -2,7 +2,3 @@
 *
 # Except this file
 !.gitignore
-!epub/
-!pdf/
-!beamer/
-!html/
