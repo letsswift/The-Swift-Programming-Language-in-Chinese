@@ -18,7 +18,7 @@
 
 \usepackage{hyperref}
 %\usepackage[colorlinks,urlcolor=blue,linkcolor=blue,anchorcolor=blue,citecolor=blue,CJKbookmarks]{hyperref}
-\hypersetup{ breaklinks=true,linktocpage,pdftitle={$title$},pdfauthor={$for(author)$$author$$sep$; $endfor$},xetex,colorlinks }
+\hypersetup{ breaklinks=true,linktocpage,pdftitle={The-Swift-Programming-Language-in-Chinese},pdfauthor={$for(author)$$author$$sep$; $endfor$},xetex,colorlinks }
 
 \usepackage{cite}
 \newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
@@ -41,8 +41,6 @@
 %\usepackage{amssymb}                 % 用来排版漂亮的数学公式
 %\usepackage{amsbsy}
 \usepackage{amsthm}
-\renewcommand{\proofname}{证明}
-\renewcommand{\algorithm}{算法}
 \usepackage{amsfonts}
 \usepackage{mathrsfs}                % 英文花体字体
 \usepackage{bm}                      % 数学公式中的黑斜体
@@ -150,11 +148,9 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
-$if(title)$
-	\title{$title$}
-$endif$
+\title{The Swift Programming Language in Chinese}
 
-\author{$for(author)$$author$$sep$\\$endfor$\\School of Software\\ Tsinghua University}
+\author{$for(author)$$author$$sep$\\$endfor$\\https://github.com/letsswift\\http://letsswift.com/}
 
 $if(date)$
 	\date{$date$}
@@ -166,9 +162,7 @@ $endif$
 
 \begin{document}
 
-$if(title)$
 \maketitle
-$endif$
 
 
 \thispagestyle{empty} 　　　%首頁頁碼空白

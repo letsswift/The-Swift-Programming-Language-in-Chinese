@@ -7,7 +7,8 @@ Created using [pandoc][1] and [Markdown][2].
 
 ##Usage:
 
-    python build.py [pdf|html|beamer]
+    build.py [pdf|html|epub|beamer]
+
 
 the default value of build.py is html. It will use default.html as a template and turn all markdown files in root dir into html in output dir. Then you can preview it in your browser.
 
@@ -35,6 +36,6 @@ see [this][4] for refrence.
 [7]:http://www.vim.org/download.php "vim"
 
 
-感谢翻译小组成员：李起攀([微博](http://weibo.com/liqipan "李起攀"))、若晨([微博](http://weibo.com/u/2508964602, "若晨"))、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾([微博](http://weibo.com/guyiguy "微博"))，校对：CXH_ME([微博](http://weibo.com/sdqxcxh))
+感谢翻译小组成员：李起攀([微博](http://weibo.com/liqipan "李起攀"))、若晨([微博](http://weibo.com/u/2508964602, "若晨"))、YAO、粽子、山有木兮木有枝、渺-Bessie、墨离、Tiger大顾([微博](http://weibo.com/guyiguy "微博"))，校对：CXH_ME([微博](http://weibo.com/sdqxcxh)),Joshua孟思拓([微博](http://weibo.com/u/3792314315))
 
 本文由翻译小组成员原创发布，个人转载请注明出处和原始链接，商业转载请联系我们~ 感谢您对我们工作的支持~
