@@ -9,7 +9,7 @@ Created using [pandoc][1] and [Markdown][2].
 
     build.py [pdf|html|epub|beamer]
 
-    directory needs to be created:
+    directory for output:
 
         output  - beamer
                 - pdf
