@@ -1,4 +1,8 @@
 *.swp
 *.pyc
-output
+output/epub/
+output/pdf/
+output/html/
+output/beamer/
+output/html/pic/
 swift_book.mkd
